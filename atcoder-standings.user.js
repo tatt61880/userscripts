@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name        atcoder-standings
 // @namespace   https://github.com/tatt61880
-// @version     1.1.3
+// @version     1.1.4
 // @description AtCoderの順位表のAC時刻に棒グラフ表示を追加します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/standings
 // @grant       none
-// @updateURL   https://raw.githubusercontent.com/tatt61880/userscripts/master/atcoder-standings.user.js
-// @downloadURL https://raw.githubusercontent.com/tatt61880/userscripts/master/atcoder-standings.user.js
+// @updateURL   https://github.com/tatt61880/userscripts/raw/master/atcoder-standings.user.js
+// @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-standings.user.js
 // ==/UserScript==
 
 (function() {
