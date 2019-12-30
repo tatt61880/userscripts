@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name        atcoder-results
+// @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     0.9.0
+// @version     0.9.1
 // @description AtCoderの提出結果のAC/WA/TLE/REの数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
 // @grant       none
-// @updateURL   https://github.com/tatt61880/userscripts/raw/master/atcoder-results.user.js
-// @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-results.user.js
+// @updateURL   https://github.com/tatt61880/userscripts/raw/master/atcoder-results-summary.user.js
+// @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-results-summary.user.js
 // ==/UserScript==
 
 (function($) {
@@ -26,14 +26,12 @@
     for(var result in result_nums) results.push(result);
     results.sort();
 
-    let text = '';
+    let summary = '';
     results.forEach(function(result){
-        if(text != '') text += ' / ';
-        console.log(result);
+        if(summary != '') summary += '&nbsp;&nbsp;&nbsp;';
         let label = result == 'AC' ? 'label-success' : 'label-warning';
-        text += '<span class=\'label ' + label + '\' aria-hidden=\'true\' data-toggle=\'tooltip\' data-placement=\'top\' title="不正解">' + result + '</span>';
-        text += ' ' + result_nums[result];
+        summary += '<span class=\'label ' + label + '\' aria-hidden=\'true\' data-toggle=\'tooltip\' data-placement=\'top\'>' + result + '</span>';
+        summary += ' ' + result_nums[result];
     });
-    $('.col-sm-12').eq(1).before('<div><p><span>' + text + '</span></p></div>');
-    console.log(results);
+    $('.col-sm-12').eq(1).before('<div><p><span>' + summary + '</span></p></div>');
 })(jQuery);
