@@ -34,5 +34,5 @@
         summary += ' ' + result_nums[result];
     });
     $('.col-sm-12').eq(1).before('<div><p><span>' + summary + '</span></p></div>');
-    scrollTo(0, 0);
+    scrollTo(0, 0); // atcoder-problem-navigatorと同時に使用した際、ページを開き直すとスクロール位置がずれるので対策。
 })(jQuery);
