@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     0.9.1
+// @version     0.9.2
 // @description AtCoderの提出結果のAC/WA/TLE/REの数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -34,4 +34,5 @@
         summary += ' ' + result_nums[result];
     });
     $('.col-sm-12').eq(1).before('<div><p><span>' + summary + '</span></p></div>');
+    scrollTo(0, 0);
 })(jQuery);
