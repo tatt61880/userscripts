@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.0.0
+// @version     1.0.1
 // @description AtCoderの提出結果のAC/WA/TLE/REの数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -15,16 +15,7 @@
 
     const KEY_PREFIX = 'atcoder-results-summary-';
 
-    if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/)) {
-        let result_nums = {};
-        $('table').eq(2).children('tbody').children().each(function(index, element) {
-            let result = $(element).children().eq(1).text();
-            if (result_nums[result] === undefined) {
-                result_nums[result] = 1;
-            } else {
-                result_nums[result]++;
-            }
-        });
+    function createSummaryHtml(result_nums) {
         let results=[];
         for(var result in result_nums) results.push(result);
         results.sort();
@@ -36,11 +27,25 @@
             summary += '<span class=\'label ' + label + '\' aria-hidden=\'true\' data-toggle=\'tooltip\' data-placement=\'top\'>' + result + '</span>';
             summary += ' ' + result_nums[result];
         });
-        $('.col-sm-12').eq(1).before('<div><p>' + summary + '</p></div>');
+        return summary;
+    }
+
+    if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/)) {
+        let result_nums = {};
+        $('table').eq(2).children('tbody').children().each(function(index, element) {
+            let result = $(element).children().eq(1).text();
+            if (result_nums[result] === undefined) {
+                result_nums[result] = 1;
+            } else {
+                result_nums[result]++;
+            }
+        });
+
+        $('.col-sm-12').eq(1).before('<div><p>' + createSummaryHtml(result_nums) + '</p></div>');
         scrollTo(0, 0); // atcoder-problem-navigatorと同時に使用した際、ページを開き直すとスクロール位置がずれるので対策。
 
         const key = KEY_PREFIX + location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/(\d+)$/)[1];
-        localStorage[key] = JSON.stringify(summary);
+        localStorage[key] = JSON.stringify(result_nums);
     } else {
         $('table').eq(0).children('tbody').children().each(function(index, element) {
             let a = $(element).children().eq(9).children().eq(0);
@@ -49,8 +54,8 @@
             const key = KEY_PREFIX + href.match(/(\d+)$/)[1];
             let storageData = localStorage[key];
             if (storageData !== undefined) {
-                let summary = JSON.parse(storageData);
-                time.after('<br>' + summary);
+                let result_nums = JSON.parse(storageData);
+                time.after('<br>' + createSummaryHtml(result_nums));
             }
         });
     }
