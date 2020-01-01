@@ -2,7 +2,7 @@
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
 // @version     1.0.1
-// @description AtCoderの提出結果のAC/WA/TLE/REの数をまとめます。
+// @description AtCoderの提出結果(AC/WA/TLE/REなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
 // @grant       none
