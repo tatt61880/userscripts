@@ -17,7 +17,7 @@
 
     function createSummaryHtml(result_nums) {
         let results=[];
-        for(var result in result_nums) results.push(result);
+        for(let result in result_nums) results.push(result);
         results.sort();
 
         let summary = '';
