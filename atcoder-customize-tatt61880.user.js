@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.0.0
+// @version     1.1.0
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -52,5 +52,12 @@
             }
         });
     }
+
+    // 1 ページあたり表示数のデフォルトを100に。
+    if (true) {
+        $(".standings-per-page").eq(3)[0].click();
+    }
+
+    // TODO: 正解者数 / 提出者数 を上部にも表示
 
 })(jQuery);
