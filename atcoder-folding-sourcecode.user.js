@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.0.2
+// @version     1.0.3
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -17,14 +17,14 @@
     const kRegexTemplateBegin = new RegExp('^//{{{$');
     const kRegexTemplateEnd = new RegExp('^//}}}$');
 /* for debug
-    const kRegexTemplateBegin = new RegExp(';');
-    const kRegexTemplateEnd = new RegExp('=');
+    const kRegexTemplateBegin = new RegExp('^#if 0$');
+    const kRegexTemplateEnd = new RegExp('^#endif$');
 */
 
     if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/)) {
         let count = 0;
-        let exec = function() {
-            let id = setTimeout(exec, 100);
+        const exec = function() {
+            const id = setTimeout(exec, 100);
             if (count > 50) {
                 clearTimeout(id);
             }
@@ -51,12 +51,11 @@
                 });
 
                 $('.atcoder-folding-sourcecode-btn').click(function(){
-                    let state = ($(this).text() == $(this).data('on-text'));
+                    const state = ($(this).text() == $(this).data('on-text'));
                     $(this).text($(this).data(state ? 'off-text' : 'on-text'));
                     $('#submission-code > ol').children('li').eq($(this).data('from') - 1).nextAll('li').each(function(index, element) {
                         $(element).css(state ? showCss : hideCss);
                         const text = $(element).text();
-                        console.log(text);
                         if (text.match(kRegexTemplateEnd)) return false;
                     });
                 });
