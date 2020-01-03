@@ -17,7 +17,6 @@
     const kRemoveBr = true; // ソースコード提出用テキストエリア下部の《※ 512 KiB まで》《※ ソースコードは「Main.拡張子」で保存されます》の間の改行を削除。
     const kStandingsDefault100 = true; // 1 ページあたり表示数のデフォルトを100に。
     const kInOutColorize = true; // 入出力の文字に色を付ける。
-    const kInOutPos = true; // 入出力の表示位置
 
     if (kFoldingFooter) {
         if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/)) {
@@ -80,8 +79,10 @@
         }
     }
 
-    if (false) { // 未完成
-    //if (kInOutPos) {
+    /*
+    // 未完成
+    const kInOutPos = true; // 入出力の表示位置
+    if (kInOutPos) {
         if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/)) {
             $('h3').each(function(index, element) {
                 if ($(element).text().match(/^入力例.*$/)) {
@@ -90,6 +91,7 @@
             });
         }
     }
+    */
 
     // TODO: 正解者数 / 提出者数 を上部にも表示
 
