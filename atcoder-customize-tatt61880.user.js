@@ -15,7 +15,7 @@
 
     const kFoldingFooter = true; // footerの折りたたみ。
     const kRemoveBr = true; // ソースコード提出用テキストエリア下部の《※ 512 KiB まで》《※ ソースコードは「Main.拡張子」で保存されます》の間の改行を削除。
-    const kStandingsDefault100 = true; // 1 ページあたり表示数のデフォルトを100に。
+    const kStandingsDefault100 = false; // 1 ページあたり表示数のデフォルトを100に。
     const kInOutColorize = true; // 入出力の文字に色を付ける。
 
     if (kFoldingFooter) {
@@ -79,10 +79,20 @@
         }
     }
 
-    /*
+    // ソートすると崩れるのを解決するまで封印。
+    // 正解者数 / 提出者数 を上部にも表示
+    if (false) {
+        if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/standings/)) {
+            const elem = $('#standings-tbody').children().eq(-1);
+            $('#standings-tbody').children().eq(0).before(elem);
+            const elem2 = $('#standings-tbody').children().eq(-1);
+            $('#standings-tbody').children().eq(0).before(elem2);
+        }
+    }
+
     // 未完成
-    const kInOutPos = true; // 入出力の表示位置
-    if (kInOutPos) {
+    // 入出力の表示位置
+    if (false) {
         if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/)) {
             $('h3').each(function(index, element) {
                 if ($(element).text().match(/^入力例.*$/)) {
@@ -91,8 +101,5 @@
             });
         }
     }
-    */
-
-    // TODO: 正解者数 / 提出者数 を上部にも表示
 
 })(jQuery);
