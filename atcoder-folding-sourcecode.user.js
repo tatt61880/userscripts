@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     0.9.2
+// @version     1.0.0
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -27,13 +27,17 @@
             if ($('.prettyprinted').length) {
                 clearTimeout(id);
                 let templateLines = 0;
+                let lines = 0;
+                const height = $('#submission-code > ol').children('li').css('height');
+                const showCss = {'height': height, 'visibility': 'visible'};
+                const hideCss = {'height': 0, 'visibility': 'hidden'};
                 $('#submission-code > ol').children('li').each(function(index, element) {
-                    let text = $(element).text();
+                    lines++;
+                    const text = $(element).text();
                     if (text.match(kRegexTemplateBegin)) templateLines = 1;
-                    console.log(templateLines);
                     if (templateLines) {
                         if (templateLines == 1) {
-                            $(element).children().eq(0).after('<span> <a id="atcoder-folding-sourcecode-button" class="btn-text" data-on-text="拡げる" data-off-text="折りたたむ">拡げる</a> </span>');
+                            $(element).children().eq(0).after('<span> <a id="atcoder-folding-sourcecode-btn" class="btn-text" data-on-text="拡げる" data-off-text="折りたたむ" data-from="' + lines + '">拡げる</a></span>');
                         } else {
                             $(element).css({'height': 0, 'visibility': 'hidden'});
                         }
@@ -41,13 +45,15 @@
                     }
                     if (text.match(kRegexTemplateEnd)) templateLines = 0;
                 });
-                $('#atcoder-folding-sourcecode-button').click(function(){
+
+                $('#atcoder-folding-sourcecode-btn').click(function(){
                     let state = ($(this).text() == $(this).data('on-text'));
-                    if (state) {
-                        $(this).text($(this).data('off-text'));
-                    } else {
-                        $(this).text($(this).data('on-text'));
-                    }
+                    $(this).text($(this).data(state ? 'off-text' : 'on-text'));
+                    $('#submission-code > ol').children('li').eq($(this).data('from') - 1).nextAll('li').each(function(index, element) {
+                        $(element).css(state ? showCss : hideCss);
+                        let text = $(element).text();
+                        if (text.match(kRegexTemplateEnd)) return false;
+                    });
                     // TODO
                 });
             }
