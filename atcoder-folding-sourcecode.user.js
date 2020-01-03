@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.0.4
+// @version     1.0.5
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -14,12 +14,13 @@
     'use strict';
 
     // 以下の2行を適宜変更して使用してください。
-    const kRegexTemplateBegin = new RegExp('^//{{{$');
-    const kRegexTemplateEnd = new RegExp('^//}}}$');
-/* for debug
+    const kRegexTemplateBegin = new RegExp('//{{{');
+    const kRegexTemplateEnd = new RegExp('//}}}');
+
+    /* 上記以外の例
     const kRegexTemplateBegin = new RegExp('^#if 0$');
     const kRegexTemplateEnd = new RegExp('^#endif$');
-*/
+    */
 
     if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/)) {
         let count = 0;
@@ -38,7 +39,7 @@
                 $('#submission-code > ol > li').each(function(index, element) {
                     lines++;
                     const text = $(element).text();
-                    if (text.match(kRegexTemplateBegin) && !text.match(kRegexTemplateEnd)) templateLines = 1;
+                    if (!templateLines && text.match(kRegexTemplateBegin) && !text.match(kRegexTemplateEnd)) templateLines = 1;
                     if (templateLines) {
                         if (templateLines == 1) {
                             $(element).children().eq(-1).after('<span> <a class="btn-text atcoder-folding-sourcecode-btn" data-on-text="拡げる" data-off-text="折りたたむ" data-from="' + lines + '">拡げる</a></span>');
