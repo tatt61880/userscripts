@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.0.3
+// @version     1.0.4
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -32,10 +32,10 @@
                 clearTimeout(id);
                 let templateLines = 0;
                 let lines = 0;
-                const height = $('#submission-code > ol').children('li').css('height');
+                const height = $('#submission-code > ol > li').css('height');
                 const showCss = {'height': height, 'visibility': 'visible'};
                 const hideCss = {'height': 0, 'visibility': 'hidden'};
-                $('#submission-code > ol').children('li').each(function(index, element) {
+                $('#submission-code > ol > li').each(function(index, element) {
                     lines++;
                     const text = $(element).text();
                     if (text.match(kRegexTemplateBegin) && !text.match(kRegexTemplateEnd)) templateLines = 1;
@@ -53,7 +53,7 @@
                 $('.atcoder-folding-sourcecode-btn').click(function(){
                     const state = ($(this).text() == $(this).data('on-text'));
                     $(this).text($(this).data(state ? 'off-text' : 'on-text'));
-                    $('#submission-code > ol').children('li').eq($(this).data('from') - 1).nextAll('li').each(function(index, element) {
+                    $('#submission-code > ol > li').eq($(this).data('from') - 1).nextAll('li').each(function(index, element) {
                         $(element).css(state ? showCss : hideCss);
                         const text = $(element).text();
                         if (text.match(kRegexTemplateEnd)) return false;
