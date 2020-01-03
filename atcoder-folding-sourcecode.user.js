@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.0.0
+// @version     1.0.1
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions/*
@@ -39,7 +39,7 @@
                         if (templateLines == 1) {
                             $(element).children().eq(0).after('<span> <a id="atcoder-folding-sourcecode-btn" class="btn-text" data-on-text="拡げる" data-off-text="折りたたむ" data-from="' + lines + '">拡げる</a></span>');
                         } else {
-                            $(element).css({'height': 0, 'visibility': 'hidden'});
+                            $(element).css(hideCss);
                         }
                         templateLines++;
                     }
