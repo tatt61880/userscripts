@@ -14,8 +14,8 @@
     'use strict';
 
     // 以下の2行を適宜変更して使用してください。
-    const kRegexTemplateBegin = new RegExp('//{{{');
-    const kRegexTemplateEnd = new RegExp('//}}}');
+    const kRegexTemplateBegin = new RegExp('^//{{{$');
+    const kRegexTemplateEnd = new RegExp('^//}}}$');
 
     /* 上記以外の例
     const kRegexTemplateBegin = new RegExp('^#if 0$');
