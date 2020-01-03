@@ -32,7 +32,7 @@
 
     if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/)) {
         let result_nums = {};
-        $('table').eq(2).children('tbody').children().each(function(index, element) {
+        $('table:eq(2) > tbody >').each(function(index, element) {
             const result = $(element).children().eq(1).text();
             if (result_nums[result] === undefined) {
                 result_nums[result] = 1;
