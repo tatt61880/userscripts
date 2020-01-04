@@ -50,7 +50,7 @@
             $(this).text($(this).data(state ? 'off-text' : 'on-text'));
             if (state) {
                 $('#' + footerId).show();
-                // 最下部にスクロールする。
+                // 最下部にスクロールします。
                 const documentElement = document.documentElement;
                 const bottom =
                     documentElement.scrollHeight - documentElement.clientHeight;
