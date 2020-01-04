@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.2.1
+// @version     1.2.2
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -14,11 +14,11 @@
     'use strict';
 
     const kFoldingFooter = true; // footerの折りたたみ。
-    const kRemoveBr = true; // ソースコード提出用テキストエリア下部の《※ 512 KiB まで》《※ ソースコードは「Main.拡張子」で保存されます》の間の改行を削除。
+    const kRemoveBr = true; // ソースコード提出用テキストエリア下部の余分な改行(*)を削除
+    // (*)《※ 512 KiB まで》《※ ソースコードは「Main.拡張子」で保存されます》の間の改行
     const kStandingsDefault100 = false; // 1 ページあたり表示数のデフォルトを100に。
     const kInOutColorize = true; // 入出力の文字に色を付ける。
-    // const kShowStandingsStatisticsInThead = true; // 正解者数 / 提出者数 を上部に表示
-    const kShowStandingsStatisticsInThead = true; // ※ソートすると崩れることが判ったので封印。
+    const kShowStandingsStatisticsInThead = true; // 正解者数 / 提出者数 を上部に表示
 
     if (kFoldingFooter) foldingFooter();
     if (kRemoveBr) removeBr();
@@ -31,7 +31,10 @@
         const footer = $('.container > footer.footer').parent();
         footer.after(
             '<div style="text-align: center;">' +
-                '<a id="atcoder-customize-tatt61880-footer-btn" class="btn-text" data-on-text="フッターを表示" data-off-text="フッターを非表示">フッターを表示</a> by tatt61880' +
+                '<a id="atcoder-customize-tatt61880-footer-btn"' +
+                ' class="btn-text" data-on-text="フッターを表示"' +
+                ' data-off-text="フッターを非表示">フッターを表示</a>' +
+                ' by tatt61880' +
                 '</div>' +
                 '<div id="' +
                 footerId +
@@ -86,8 +89,9 @@
             !location.href.match(
                 /^https:\/\/atcoder\.jp\/contests\/.*\/standings/
             )
-        )
+        ) {
             return;
+        }
 
         $('.standings-per-page').each(function(index, element) {
             if ($(element).text() == '100') {
@@ -101,8 +105,9 @@
             !location.href.match(
                 /^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/
             )
-        )
+        ) {
             return;
+        }
 
         $('h3').each(function(index, element) {
             if (
@@ -126,8 +131,9 @@
             !location.href.match(
                 /^https:\/\/atcoder\.jp\/contests\/.*\/standings/
             )
-        )
+        ) {
             return;
+        }
 
         const elem = $('#standings-tbody > .standings-statistics');
         $('table > thead').prepend('<tr>' + elem.html() + '</tr>');
@@ -149,7 +155,7 @@
                 ) {
                     $(element)
                         .parents('.part')
-                        .css({ float: 'left', 'margin-right': '30px' });
+                        .css({'float': 'left', 'margin-right': '30px'});
                 }
             });
         }
