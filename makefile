@@ -1,3 +1,5 @@
 all:
-	prettier *.user.js --write 
-	eslint *.user.js --fix
+	npm run lint
+
+install:
+	npm install
