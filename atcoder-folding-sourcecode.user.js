@@ -63,7 +63,7 @@
       });
 
       $('.atcoder-folding-sourcecode-btn').click(function(e) {
-        let $this = $(this);
+        const $this = $(this);
         const state = $this.text() == $this.data('on-text');
         $this.text($this.data(state ? 'off-text' : 'on-text'));
         $('#submission-code > ol > li').eq($this.data('from') - 1)
