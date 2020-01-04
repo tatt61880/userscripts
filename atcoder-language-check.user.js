@@ -15,7 +15,6 @@
     const myLang = 'C++14 (GCC 5.4.1)';
 
     function getElement() {
-        console.log('test');
         if (location.href.match('/submit')) {
             $('#select-lang > div').each(function(index, elem){
                 if ($(elem).css('display') == 'block') {
