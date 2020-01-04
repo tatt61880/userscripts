@@ -6,8 +6,8 @@
 // @author      tatt61880
 // @match       https://atcoder.jp/*
 // @grant       none
-// @updateURL   https://github.com/tatt61880/userscripts/raw/master/atcoder-customize.user.js
-// @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-customize.user.js
+// @updateURL   https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js
+// @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js
 // ==/UserScript==
 
 (function($) {
