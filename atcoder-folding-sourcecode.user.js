@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.2.4
+// @version     1.2.5
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @include     /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+/
@@ -22,69 +22,57 @@
     const kRegexTemplateEnd = new RegExp('^#endif$');
     */
 
-  if (
-    location.href.match(
-        /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/
-    )
-  ) {
-    const count = 0;
-    const exec = function() {
-      const id = setTimeout(exec, 100);
-      if (count > 50) {
-        clearTimeout(id);
-      }
-      if ($('.prettyprinted').length) {
-        clearTimeout(id);
-        let templateLines = 0;
-        let lines = 0;
-        const height = $('#submission-code > ol > li').css('height');
-        const showCss = {height: height, visibility: 'visible'};
-        const hideCss = {height: 0, visibility: 'hidden'};
-        $('#submission-code > ol > li').each(function(index, element) {
-          lines++;
-          const text = $(element).text();
-          if (
-            !templateLines &&
-                        text.match(kRegexTemplateBegin) &&
-                        !text.match(kRegexTemplateEnd)
-          ) {
-            templateLines = 1;
-          }
-          if (templateLines) {
-            if (templateLines == 1) {
-              const span =
-                                '<span> <a class="btn-text ' +
-                                'atcoder-folding-sourcecode-btn"' +
-                                ' data-on-text="表示" data-off-text="非表示"' +
-                                ' data-from="' +
-                                lines +
-                                '">表示</a></span>';
-              $(element)
-                  .children()
-                  .eq(-1)
-                  .after(span);
-            } else {
-              $(element).css(hideCss);
-            }
-            templateLines++;
-          }
-          if (text.match(kRegexTemplateEnd)) templateLines = 0;
-        });
+  if (location.href.match(/\/submissions\/\d+$/)) return;
 
-        $('.atcoder-folding-sourcecode-btn').click(function() {
-          const state = $(this).text() == $(this).data('on-text');
-          $(this).text($(this).data(state ? 'off-text' : 'on-text'));
-          $('#submission-code > ol > li')
-              .eq($(this).data('from') - 1)
-              .nextAll('li')
-              .each(function(index, element) {
-                $(element).css(state ? showCss : hideCss);
-                const text = $(element).text();
-                if (text.match(kRegexTemplateEnd)) return false;
-              });
-        });
-      }
-    };
-    exec();
-  }
+  const count = 0;
+  const exec = function() {
+    const id = setTimeout(exec, 100);
+    if (count > 50) clearTimeout(id);
+    if ($('.prettyprinted').length) {
+      clearTimeout(id);
+      let templateLines = 0;
+      let lines = 0;
+      const height = $('#submission-code > ol > li').css('height');
+      const showCss = {height: height, visibility: 'visible'};
+      const hideCss = {height: 0, visibility: 'hidden'};
+      $('#submission-code > ol > li').each(function(index, element) {
+        lines++;
+        const text = $(element).text();
+        if (
+          !templateLines &&
+            text.match(kRegexTemplateBegin) &&
+            !text.match(kRegexTemplateEnd)
+        ) {
+          templateLines = 1;
+        }
+        if (templateLines) {
+          if (templateLines == 1) {
+            const span =
+              '<span> <a class="btn-text atcoder-folding-sourcecode-btn"' +
+              ' data-on-text="表示" data-off-text="非表示"' +
+              ' data-from="' +
+              lines +
+              '">表示</a></span>';
+            $(element).children().eq(-1).after(span);
+          } else {
+            $(element).css(hideCss);
+          }
+          templateLines++;
+        }
+        if (text.match(kRegexTemplateEnd)) templateLines = 0;
+      });
+
+      $('.atcoder-folding-sourcecode-btn').click(function() {
+        const state = $(this).text() == $(this).data('on-text');
+        $(this).text($(this).data(state ? 'off-text' : 'on-text'));
+        $('#submission-code > ol > li').eq($(this).data('from') - 1)
+            .nextAll('li').each(function(index, element) {
+              $(element).css(state ? showCss : hideCss);
+              const text = $(element).text();
+              if (text.match(kRegexTemplateEnd)) return false;
+            });
+      });
+    }
+  };
+  exec();
 })(jQuery);

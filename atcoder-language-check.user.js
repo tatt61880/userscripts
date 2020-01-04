@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-language-check
 // @namespace   https://github.com/tatt61880
-// @version     1.2.4
+// @version     1.2.5
 // @description AtCoderでの提出時の言語チェック用です。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*
@@ -43,10 +43,6 @@
     clearTimeout(timeoutId);
     timeoutId = setTimeout(checkLanguage, 500);
   }
-  addEventListener('mouseup', eventFunc, {
-    passive: true,
-  });
-  addEventListener('keydown', eventFunc, {
-    passive: true,
-  });
+  addEventListener('mouseup', eventFunc, {passive: true});
+  addEventListener('keydown', eventFunc, {passive: true});
 })(jQuery);

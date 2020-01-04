@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.2.4
+// @version     1.2.5
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -31,16 +31,16 @@
     const footer = $('.container > footer.footer').parent();
     footer.after(
         '<div style="text-align: center;">' +
-                '<a id="atcoder-customize-tatt61880-footer-btn"' +
-                ' class="btn-text" data-on-text="フッターを表示"' +
-                ' data-off-text="フッターを非表示">フッターを表示</a>' +
-                ' by tatt61880' +
-                '</div>' +
-                '<div id="' +
-                footerId +
-                '">' +
-                footer.prop('outerHTML') +
-                '</div>'
+        '<a id="atcoder-customize-tatt61880-footer-btn" class="btn-text"' +
+        ' data-on-text="フッターを表示"' +
+        ' data-off-text="フッターを非表示">フッターを表示</a>' +
+        ' by tatt61880' +
+        '</div>' +
+        '<div id="' +
+        footerId +
+        '">' +
+        footer.prop('outerHTML') +
+        '</div>'
     );
     $('#' + footerId).hide();
     footer.remove();
@@ -51,9 +51,8 @@
       if (state) {
         $('#' + footerId).show();
         // 最下部にスクロールします。
-        const documentElement = document.documentElement;
-        const bottom =
-                    documentElement.scrollHeight - documentElement.clientHeight;
+        const elem = document.documentElement;
+        const bottom = elem.scrollHeight - elem.clientHeight;
         window.scroll(0, bottom);
       } else {
         $('#' + footerId).hide();
@@ -62,36 +61,21 @@
   }
 
   function removeBr() {
-    const br = $('#sourceCode')
-        .children('p')
-        .children('br');
+    const br = $('#sourceCode').children('p').children('br');
     br.each(function(index, element) {
-      const prevText = $(element)
-          .prev()
-          .text();
-      const nextText = $(element)
-          .next()
-          .text();
-      if (
-        prevText == '※ 512 KiB まで' &&
-                nextText == '※ ソースコードは「Main.拡張子」で保存されます'
+      const prevText = $(element).prev().text();
+      const nextText = $(element).next().text();
+      if (prevText == '※ 512 KiB まで' &&
+        nextText == '※ ソースコードは「Main.拡張子」で保存されます'
       ) {
-        $(element)
-            .next()
-            .text('/ ' + nextText);
+        $(element).next().text('/ ' + nextText);
         $(element).hide();
       }
     });
   }
 
   function standingsDefault100() {
-    if (
-      !location.href.match(
-          /^https:\/\/atcoder\.jp\/contests\/.*\/standings/
-      )
-    ) {
-      return;
-    }
+    if (!location.href.match(/\/contests\/.*\/standings/)) return;
 
     $('.standings-per-page').each(function(index, element) {
       if ($(element).text() == '100') {
@@ -101,39 +85,19 @@
   }
 
   function inOutColorize() {
-    if (
-      !location.href.match(
-          /^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/
-      )
-    ) {
-      return;
-    }
+    if (!location.href.match(/\/contests\/.*\/tasks.*$/)) return;
 
     $('h3').each(function(index, element) {
-      if (
-        $(element)
-            .text()
-            .match(/^入力.*$/)
-      ) {
+      if ($(element).text().match(/^入力.*$/)) {
         $(element).css('color', '#000080');
-      } else if (
-        $(element)
-            .text()
-            .match(/^出力.*$/)
-      ) {
+      } else if ($(element).text().match(/^出力.*$/)) {
         $(element).css('color', '#008000');
       }
     });
   }
 
   function showStandingsStatisticsInThead() {
-    if (
-      !location.href.match(
-          /^https:\/\/atcoder\.jp\/contests\/.*\/standings/
-      )
-    ) {
-      return;
-    }
+    if (!location.href.match(/\/contests\/.*\/standings/)) return;
 
     const elem = $('#standings-tbody > .standings-statistics');
     $('table > thead').prepend('<tr>' + elem.html() + '</tr>');
@@ -142,20 +106,12 @@
   // 未完成 (完成しなさそう)
   // 入出力の表示変更
   if (false) {
-    if (
-      location.href.match(
-          /^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/
-      )
-    ) {
+    if (location.href.match(/^contests\/.*\/tasks.*$/)) {
       $('h3').each(function(index, element) {
-        if (
-          $(element)
-              .text()
-              .match(/^入力例.*$/)
-        ) {
-          $(element)
-              .parents('.part')
-              .css({'float': 'left', 'margin-right': '30px'});
+        if ($(element).text().match(/^入力例.*$/)) {
+          $(element).parents('.part').css(
+              {'float': 'left', 'margin-right': '30px'}
+          );
         }
       });
     }
