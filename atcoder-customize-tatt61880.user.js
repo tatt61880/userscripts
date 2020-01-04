@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.1.4
+// @version     1.1.5
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -28,11 +28,11 @@
 
     function foldingFooter() {
         const footerId = 'footer-tatt61880';
-        const footer = $('footer.footer').parent();
+        const footer = $('.container > footer.footer').parent();
         footer.after('<div style="text-align: center;">'
                      + '<a id="atcoder-customize-tatt61880-footer-btn" class="btn-text" data-on-text="フッターを表示" data-off-text="フッターを非表示">フッターを表示</a> by tatt61880'
                      + '</div>'
-                     + '<div id="' + footerId + '">' + footer.html() + '</div>');
+                     + '<div id="' + footerId + '">' + footer.prop('outerHTML') + '</div>');
         $('#' + footerId).hide();
         footer.remove();
 
