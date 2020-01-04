@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.1.3
+// @version     1.1.4
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -88,8 +88,8 @@
     function showStandingsStatisticsInThead() {
         if (!location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/standings/)) return;
 
-        const elem = $('#standings-tbody').children().eq(-1);
-        $('table > thead').children().eq(0).before('<tr>' + elem.html() + '</tr>');
+        const elem = $('#standings-tbody > .standings-statistics');
+        $('table > thead').prepend('<tr>' + elem.html() + '</tr>');
     }
 
     // 未完成 (完成しなさそう)
