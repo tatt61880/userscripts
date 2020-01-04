@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.2.2
+// @version     1.2.3
 // @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
@@ -21,9 +21,13 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
 
     const KEY_PREFIX = 'atcoder-results-summary.user.js-';
 
-    function createSummaryHtml(result_nums) {
+    function createSummaryHtml(resultNums) {
         let results = [];
-        for (let result in result_nums) results.push(result);
+        for (let result in resultNums) {
+            if ({}.hasOwnProperty.call(resultNums, result)) {
+                results.push(result);
+            }
+        }
         results.sort();
 
         let summary = '';
@@ -31,12 +35,8 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
             if (summary != '') summary += ' &nbsp; ';
             const label = result == 'AC' ? 'label-success' : 'label-warning';
             summary +=
-                '<span class=\'label ' +
-                label +
-                '\' aria-hidden=\'true\' data-toggle=\'tooltip\' data-placement=\'top\'>' +
-                result +
-                '</span>';
-            summary += ' ' + result_nums[result];
+                '<span class=\'label ' + label + '\'>' + result + '</span>';
+            summary += ' ' + resultNums[result];
         });
         return summary;
     }
@@ -46,7 +46,7 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
             /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+$/
         )
     ) {
-        let result_nums = {};
+        let resultNums = {};
         $('table')
             .eq(2)
             .children('tbody')
@@ -56,29 +56,32 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
                     .children()
                     .eq(1)
                     .text();
-                if (result_nums[result] === undefined) {
-                    result_nums[result] = 1;
+                if (resultNums[result] === undefined) {
+                    resultNums[result] = 1;
                 } else {
-                    result_nums[result]++;
+                    resultNums[result]++;
                 }
             });
 
         const elem = $('.col-sm-12').eq(1);
         const p = elem.children('p');
-        p.eq(1).before('<p>' + createSummaryHtml(result_nums) + '</p>');
+        p.eq(1).before('<p>' + createSummaryHtml(resultNums) + '</p>');
         p.eq(0).css('display', 'none');
         elem
             .children('hr')
             .eq(0)
             .css('display', 'none');
-        scrollTo(0, 0); // atcoder-problem-navigator.user.js と同時に使用した際、ページを開き直すとスクロール位置がずれるので対策。
+
+        // atcoder-problem-navigator.user.js と同時に使用した際、
+        // ページを開き直すとスクロール位置がずれるので対策。
+        scrollTo(0, 0);
 
         const key =
             KEY_PREFIX +
             location.href.match(
                 /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/(\d+)$/
             )[1];
-        localStorage[key] = JSON.stringify(result_nums);
+        localStorage[key] = JSON.stringify(resultNums);
     } else {
         $('table')
             .eq(0)
@@ -95,13 +98,13 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
                     const key = KEY_PREFIX + href.match(/(\d+)$/)[1];
                     const storageData = localStorage[key];
                     if (storageData !== undefined) {
-                        let result_nums = JSON.parse(storageData);
+                        let resultNums = JSON.parse(storageData);
                         const elem = $(element)
                             .children()
                             .eq(0)
                             .children()
                             .eq(0);
-                        elem.after('<br>' + createSummaryHtml(result_nums));
+                        elem.after('<br>' + createSummaryHtml(resultNums));
                     }
                 }
             });

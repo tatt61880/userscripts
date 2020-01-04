@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-standings
 // @namespace   https://github.com/tatt61880
-// @version     1.2.2
+// @version     1.2.3
 // @description AtCoderの順位表のAC時刻に棒グラフ表示を追加します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/standings
@@ -26,7 +26,8 @@
                     Number(timeStr.substr(-2));
                 const parcent = Math.round(100 * timeSec / contestTimeSec);
                 const style =
-                    'background: linear-gradient(to right, rgb(250, 250, 150) ' +
+                    'background: ' +
+                    'linear-gradient(to right, rgb(250, 250, 150) ' +
                     parcent +
                     '%, transparent ' +
                     parcent +

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.2.2
+// @version     1.2.3
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @include     /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+/
@@ -53,7 +53,10 @@
                     if (templateLines) {
                         if (templateLines == 1) {
                             const span =
-                                '<span> <a class="btn-text atcoder-folding-sourcecode-btn" data-on-text="表示" data-off-text="非表示" data-from="' +
+                                '<span> <a class="btn-text ' +
+                                'atcoder-folding-sourcecode-btn"' +
+                                ' data-on-text="表示" data-off-text="非表示"' +
+                                ' data-from="' +
                                 lines +
                                 '">表示</a></span>';
                             $(element)
