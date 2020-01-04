@@ -1,14 +1,20 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.1.1
-// @description AtCoderの提出結果(AC/WA/TLE/REなど)の数をまとめます。
+// @version     1.1.2
+// @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
 // @grant       none
 // @updateURL   https://github.com/tatt61880/userscripts/raw/master/atcoder-results-summary.user.js
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-results-summary.user.js
 // ==/UserScript==
+
+/*
+デバッグ用の参考
+・1回の提出で AC/RE/TLE/WA が全て出ている提出。
+https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
+*/
 
 (function($) {
     'use strict';
@@ -58,8 +64,8 @@
                 const storageData = localStorage[key];
                 if (storageData !== undefined) {
                     let result_nums = JSON.parse(storageData);
-                    const time = $(element).children().eq(0).children().eq(0);
-                    time.after('<br>' + createSummaryHtml(result_nums));
+                    const elem = $(element).children().eq(0).children().eq(0);
+                    elem.after('<br>' + createSummaryHtml(result_nums));
                 }
             }
         });
