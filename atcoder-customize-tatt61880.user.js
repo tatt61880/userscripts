@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.1.1
+// @version     1.1.2
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -19,30 +19,28 @@
     const kInOutColorize = true; // 入出力の文字に色を付ける。
 
     if (kFoldingFooter) {
-        if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/tasks.*$/)) {
-            const footerId = 'footer-tatt61880';
-            const footer = $('footer').parent();
-            footer.after('<div style="text-align: center;">'
-                         + '<a id="atcoder-customize-tatt61880-footer-btn" class="btn-text" data-on-text="フッターを表示" data-off-text="フッターを非表示">フッターを表示</a> by tatt61880'
-                         + '</div>'
-                         + '<div id="' + footerId + '">' + footer.html() + '</div>');
-            $('#' + footerId).hide();
-            footer.remove();
+        const footerId = 'footer-tatt61880';
+        const footer = $('footer.footer').parent();
+        footer.after('<div style="text-align: center;">'
+                     + '<a id="atcoder-customize-tatt61880-footer-btn" class="btn-text" data-on-text="フッターを表示" data-off-text="フッターを非表示">フッターを表示</a> by tatt61880'
+                     + '</div>'
+                     + '<div id="' + footerId + '">' + footer.html() + '</div>');
+        $('#' + footerId).hide();
+        footer.remove();
 
-            $('#atcoder-customize-tatt61880-footer-btn').click(function(){
-                const state = ($(this).text() == $(this).data('on-text'));
-                $(this).text($(this).data(state ? 'off-text' : 'on-text'));
-                if (state) {
-                    $('#' + footerId).show();
-                    // 最下部にスクロールする。
-                    const documentElement = document.documentElement;
-                    const bottom = documentElement.scrollHeight - documentElement.clientHeight;
-                    window.scroll(0, bottom);
-                } else {
-                    $('#' + footerId).hide();
-                }
-            });
-        }
+        $('#atcoder-customize-tatt61880-footer-btn').click(function(){
+            const state = ($(this).text() == $(this).data('on-text'));
+            $(this).text($(this).data(state ? 'off-text' : 'on-text'));
+            if (state) {
+                $('#' + footerId).show();
+                // 最下部にスクロールする。
+                const documentElement = document.documentElement;
+                const bottom = documentElement.scrollHeight - documentElement.clientHeight;
+                window.scroll(0, bottom);
+            } else {
+                $('#' + footerId).hide();
+            }
+        });
     }
 
     if (kRemoveBr) {
@@ -80,13 +78,13 @@
     }
 
     // ソートすると崩れるのを解決するまで封印。
-    // 正解者数 / 提出者数 を上部にも表示
-    if (false) {
+    // 正解者数 / 提出者数 を上部に表示
+    if (true) {
         if (location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/standings/)) {
             const elem = $('#standings-tbody').children().eq(-1);
-            $('#standings-tbody').children().eq(0).before(elem);
+            $('table > thead').children().eq(0).before(elem);
             const elem2 = $('#standings-tbody').children().eq(-1);
-            $('#standings-tbody').children().eq(0).before(elem2);
+            $('table > thead').children().eq(0).before(elem2);
         }
     }
 
