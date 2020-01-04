@@ -22,7 +22,7 @@
     const kRegexTemplateEnd = new RegExp('^#endif$');
     */
 
-  if (location.href.match(/\/submissions\/\d+$/)) return;
+  if (!location.href.match(/\/submissions\/\d+$/)) return;
 
   const count = 0;
   const exec = function() {
@@ -62,10 +62,11 @@
         if (text.match(kRegexTemplateEnd)) templateLines = 0;
       });
 
-      $('.atcoder-folding-sourcecode-btn').click(function() {
-        const state = $(this).text() == $(this).data('on-text');
-        $(this).text($(this).data(state ? 'off-text' : 'on-text'));
-        $('#submission-code > ol > li').eq($(this).data('from') - 1)
+      $('.atcoder-folding-sourcecode-btn').click(function(e) {
+        let $this = $(this);
+        const state = $this.text() == $this.data('on-text');
+        $this.text($this.data(state ? 'off-text' : 'on-text'));
+        $('#submission-code > ol > li').eq($this.data('from') - 1)
             .nextAll('li').each(function(index, element) {
               $(element).css(state ? showCss : hideCss);
               const text = $(element).text();
