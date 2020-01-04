@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.0.4
+// @version     1.1.0
 // @description AtCoderの提出結果(AC/WA/TLE/REなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
@@ -13,7 +13,7 @@
 (function($) {
     'use strict';
 
-    const KEY_PREFIX = 'atcoder-results-summary-';
+    const KEY_PREFIX = 'atcoder-results-summary.user.js-';
 
     function createSummaryHtml(result_nums) {
         let results=[];
@@ -53,12 +53,14 @@
     } else {
         $('table').eq(0).children('tbody').children('tr').each(function(index, element) {
             const href = $(element).children().eq(9).children().eq(0).attr('href');
-            const time = $(element).children().eq(0).children().eq(0);
-            const key = KEY_PREFIX + href.match(/(\d+)$/)[1];
-            const storageData = localStorage[key];
-            if (storageData !== undefined) {
-                let result_nums = JSON.parse(storageData);
-                time.after('<br>' + createSummaryHtml(result_nums));
+            if (href !== undefined) {
+                const key = KEY_PREFIX + href.match(/(\d+)$/)[1];
+                const storageData = localStorage[key];
+                if (storageData !== undefined) {
+                    let result_nums = JSON.parse(storageData);
+                    const time = $(element).children().eq(0).children().eq(0);
+                    time.after('<br>' + createSummaryHtml(result_nums));
+                }
             }
         });
     }
