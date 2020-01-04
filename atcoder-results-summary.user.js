@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.2.1
+// @version     1.2.2
 // @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
@@ -31,9 +31,9 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
             if (summary != '') summary += ' &nbsp; ';
             const label = result == 'AC' ? 'label-success' : 'label-warning';
             summary +=
-                "<span class='label " +
+                '<span class=\'label ' +
                 label +
-                "' aria-hidden='true' data-toggle='tooltip' data-placement='top'>" +
+                '\' aria-hidden=\'true\' data-toggle=\'tooltip\' data-placement=\'top\'>' +
                 result +
                 '</span>';
             summary += ' ' + result_nums[result];

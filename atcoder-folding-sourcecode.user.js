@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.2.1
+// @version     1.2.2
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @include     /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+/
@@ -38,8 +38,8 @@
                 let templateLines = 0;
                 let lines = 0;
                 const height = $('#submission-code > ol > li').css('height');
-                const showCss = { height: height, visibility: 'visible' };
-                const hideCss = { height: 0, visibility: 'hidden' };
+                const showCss = {height: height, visibility: 'visible'};
+                const hideCss = {height: 0, visibility: 'hidden'};
                 $('#submission-code > ol > li').each(function(index, element) {
                     lines++;
                     const text = $(element).text();
@@ -47,8 +47,9 @@
                         !templateLines &&
                         text.match(kRegexTemplateBegin) &&
                         !text.match(kRegexTemplateEnd)
-                    )
+                    ) {
                         templateLines = 1;
+                    }
                     if (templateLines) {
                         if (templateLines == 1) {
                             const span =

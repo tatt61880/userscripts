@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-language-check
 // @namespace   https://github.com/tatt61880
-// @version     1.2.2
+// @version     1.2.3
 // @description AtCoderでの提出時の言語チェック用です。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*
