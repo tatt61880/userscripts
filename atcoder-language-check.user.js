@@ -43,18 +43,10 @@
         clearTimeout(timeoutId);
         timeoutId = setTimeout(checkLanguage, 500);
     }
-    addEventListener(
-        'mouseup',
-        eventFunc,
-        {
-            passive: true,
-        }
-    );
-    addEventListener(
-        'keydown',
-        eventFunc,
-        {
-            passive: true,
-        }
-    );
+    addEventListener('mouseup', eventFunc, {
+        passive: true,
+    });
+    addEventListener('keydown', eventFunc, {
+        passive: true,
+    });
 })(jQuery);
