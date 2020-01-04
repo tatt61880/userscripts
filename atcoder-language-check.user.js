@@ -11,42 +11,42 @@
 // ==/UserScript==
 
 (function($) {
-    'use strict';
-    const myLang = 'C++14 (GCC 5.4.1)';
+  'use strict';
+  const myLang = 'C++14 (GCC 5.4.1)';
 
-    function getElement() {
-        if (location.href.match('/submit')) {
-            let res;
-            $('#select-lang > div').each(function(index, elem) {
-                if ($(elem).css('display') == 'block') {
-                    res = $(elem).find('span.selection');
-                    return false;
-                }
-            });
-            return res;
-        } else {
-            return $('#select-lang span.selection');
+  function getElement() {
+    if (location.href.match('/submit')) {
+      let res;
+      $('#select-lang > div').each(function(index, elem) {
+        if ($(elem).css('display') == 'block') {
+          res = $(elem).find('span.selection');
+          return false;
         }
+      });
+      return res;
+    } else {
+      return $('#select-lang span.selection');
     }
+  }
 
-    function checkLanguage() {
-        const lang = getElement().text();
-        const isOk = lang.indexOf(myLang) !== -1;
-        $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
-    }
+  function checkLanguage() {
+    const lang = getElement().text();
+    const isOk = lang.indexOf(myLang) !== -1;
+    $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
+  }
 
-    addEventListener('load', checkLanguage);
+  addEventListener('load', checkLanguage);
 
-    let timeoutId;
-    function eventFunc() {
-        // イベントが連続して発火したときに、最後の1回の後だけ処理するようにします。
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(checkLanguage, 500);
-    }
-    addEventListener('mouseup', eventFunc, {
-        passive: true,
-    });
-    addEventListener('keydown', eventFunc, {
-        passive: true,
-    });
+  let timeoutId;
+  function eventFunc() {
+    // イベントが連続して発火したときに、最後の1回の後だけ処理するようにします。
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(checkLanguage, 500);
+  }
+  addEventListener('mouseup', eventFunc, {
+    passive: true,
+  });
+  addEventListener('keydown', eventFunc, {
+    passive: true,
+  });
 })(jQuery);
