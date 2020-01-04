@@ -14,30 +14,39 @@
     'use strict';
     const myLang = 'C++14 (GCC 5.4.1)';
 
-    function checkLanguage() {
+    function getElement() {
+        console.log('test');
         if (location.href.match('/submit')) {
             $('#select-lang > div').each(function(index, elem){
                 if ($(elem).css('display') == 'block') {
-                    let lang = $(elem).find('span.selection').text();
-                    check(lang);
+                    return $(elem).find('span.selection');
                 }
             })
         } else {
-            const lang = $('#select-lang span.selection').text();
-            check(lang);
+            return $('#select-lang span.selection');
         }
+    }
 
-        function check(lang) {
-            const isOk = (lang.indexOf(myLang) !== -1);
-            $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
-        }
+    function checkLanguage() {
+        const lang = getElement().text();
+        const isOk = (lang.indexOf(myLang) !== -1);
+        $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
     }
 
     addEventListener('load', checkLanguage);
 
     let timeoutId;
     addEventListener('mouseup', function(){
+        // イベントが連続して発火したときに、最後の1回の後だけ処理するようにします。
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(checkLanguage, 100);
+        timeoutId = setTimeout(checkLanguage, 500);
+    }, {
+        passive : true
+    });
+    addEventListener('keydown', function(){
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(checkLanguage, 500);
+    }, {
+        passive : true
     });
 })(jQuery);
