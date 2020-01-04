@@ -36,7 +36,7 @@
         $('#' + footerId).hide();
         footer.remove();
 
-        $('#atcoder-customize-tatt61880-footer-btn').click(function(){
+        $('#atcoder-customize-tatt61880-footer-btn').click(function() {
             const state = ($(this).text() == $(this).data('on-text'));
             $(this).text($(this).data(state ? 'off-text' : 'on-text'));
             if (state) {
@@ -103,5 +103,4 @@
             });
         }
     }
-
 })(jQuery);
