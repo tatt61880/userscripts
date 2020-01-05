@@ -21,7 +21,7 @@
     "no-var": 2,
     "indent": [2, 2],
     "space-in-parens": [2, "never"],
-    "no-console": 0,
+    "no-console": 2,
     "comma-spacing": 2,
     "computed-property-spacing": 2,
     "key-spacing": 2,
