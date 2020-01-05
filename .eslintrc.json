@@ -11,6 +11,7 @@
         "jQuery": false
     },
     "rules": {
-        "semi": "error"
+        "semi": "error",
+        "space-infix-ops": "error"
     }
 }
