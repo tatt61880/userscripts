@@ -11,8 +11,6 @@
         "jQuery": false
     },
     "rules": {
-        "require-jsdoc": [
-            "off"
-        ]
+        "semi": "error"
     }
 }
