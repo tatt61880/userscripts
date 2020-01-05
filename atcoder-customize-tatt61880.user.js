@@ -14,17 +14,19 @@
   'use strict';
 
   const kFoldingFooter = true; // footerの折りたたみ。
-  const kRemoveBr = true; // ソースコード提出用テキストエリア下部の余分な改行(*)を削除
-  // (*)《※ 512 KiB まで》《※ ソースコードは「Main.拡張子」で保存されます》の間の改行
+  const kRemoveBr = true; // ソースコード提出用テキストエリア下部の余分な改行(※)を削除
+  // (※)《※ 512 KiB まで》《※ ソースコードは「Main.拡張子」で保存されます》の間の改行
   const kStandingsDefault100 = false; // 1 ページあたり表示数のデフォルトを100に。
   const kInOutColorize = true; // 入出力の文字に色を付ける。
   const kShowStandingsStatisticsInThead = true; // 正解者数 / 提出者数 を上部に表示
+  const kDrawACTimeBarGraph = true; // 順位表に棒グラフ追加
 
   if (kFoldingFooter) foldingFooter();
   if (kRemoveBr) removeBr();
   if (kStandingsDefault100) standingsDefault100();
   if (kInOutColorize) inOutColorize();
   if (kShowStandingsStatisticsInThead) showStandingsStatisticsInThead();
+  if (kDrawACTimeBarGraph) drawACTimeBarGraph();
 
   function foldingFooter() {
     const footerId = 'footer-tatt61880';
@@ -98,10 +100,48 @@
   }
 
   function showStandingsStatisticsInThead() {
-    if (!location.href.match(/\/contests\/.*\/standings/)) return;
+    if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
     const elem = $('#standings-tbody > .standings-statistics');
     $('table > thead').prepend('<tr>' + elem.html() + '</tr>');
+  }
+
+  function drawACTimeBarGraph() {
+    if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
+    function drawACTimeBarGraphSub() {
+      const start = eval('startTime');
+      const end = eval('endTime');
+      const contestTimeSec = (end - start) / 1000;
+      // console.log('contestTimeSec: ' + contestTimeSec);
+      [].forEach.call(
+        document.getElementsByClassName('standings-result'),
+        function(x) {
+          const elem = x.children[1];
+          if (elem === undefined) return;
+          const timeStr = elem.textContent;
+          const timeSec =
+            Number(timeStr.substr(0, timeStr.length - 3)) * 60 +
+            Number(timeStr.substr(-2));
+          const parcent = Math.round(100 * timeSec / contestTimeSec);
+          const style =
+            'background: ' +
+            'linear-gradient(to right, rgb(250, 250, 150) ' +
+            parcent +
+            '%, transparent ' +
+            parcent +
+            '%);';
+          elem.setAttribute('style', style);
+        }
+      );
+    }
+
+    $(document).ready(drawACTimeBarGraphSub);
+
+    let timeoutId;
+    $(document).on('mouseup', function() {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(drawACTimeBarGraphSub, 500);
+    });
   }
 
   // 未完成 (完成しなさそう)
