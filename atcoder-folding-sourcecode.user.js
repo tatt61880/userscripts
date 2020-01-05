@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-folding-sourcecode
 // @namespace   https://github.com/tatt61880
-// @version     1.3.0
+// @version     1.3.1
 // @description AtCoderで提出したソースコードのテンプレート部分を折りたたみます。
 // @author      tatt61880
 // @include     /^https:\/\/atcoder\.jp\/contests\/.*\/submissions\/\d+/
