@@ -20,7 +20,7 @@
   /* 上記以外の例
     const kRegexTemplateBegin = new RegExp('^#if 0$');
     const kRegexTemplateEnd = new RegExp('^#endif$');
-    */
+  */
 
   if (!location.href.match(/\/submissions\/\d+$/)) return;
 
