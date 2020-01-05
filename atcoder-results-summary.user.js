@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.3.1
+// @version     1.3.3
 // @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
