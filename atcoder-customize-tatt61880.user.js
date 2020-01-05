@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.3.3
+// @version     1.3.5
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -112,7 +112,7 @@
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
     const elem = $('#standings-tbody > .standings-statistics');
-    $('table > thead').prepend('<tr>' + elem.html() + '</tr>');
+    $('table > thead').prepend(elem.prop('outerHTML'));
   }
 
   function drawACTimeBarGraph() {
