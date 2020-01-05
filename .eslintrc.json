@@ -1,6 +1,6 @@
 {
     "parser": "babel-eslint",
-    "extends": "google",
+    "extends": "eslint:recommended",
     "rules": {
         "require-jsdoc": [
             "off"
