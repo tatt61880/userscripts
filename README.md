@@ -1,6 +1,6 @@
 # userscripts
 
-### [atcoder-results-summary.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-results-summary.user.js)
+## [atcoder-results-summary.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-results-summary.user.js)
 
 AtCoderの提出詳細ページの先頭部分に、提出結果(AC/RE/TLE/WAなど)の数のまとめを表示します。
 
@@ -12,6 +12,6 @@ AtCoderの提出詳細ページの先頭部分に、提出結果(AC/RE/TLE/WAな
 
 
 
-###  [atcoder-customize-tatt61880.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js)
+##  [atcoder-customize-tatt61880.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js)
 
 私( [@tatt61880](https://twitter.com/tatt61880) )の好みに合わせて、AtCoderのサイトを細かく調整します。 使用は非推奨です。
