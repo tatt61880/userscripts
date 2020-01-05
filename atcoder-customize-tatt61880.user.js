@@ -78,7 +78,7 @@
   }
 
   function standingsDefault100() {
-    if (!location.href.match(/\/contests\/.*\/standings/)) return;
+    if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
     $('.standings-per-page').each(function(index, element) {
       if ($(element).text() == '100') {
