@@ -21,14 +21,15 @@
   const kShowStandingsStatisticsInThead = true; // 正解者数 / 提出者数 を上部に表示
   const kDrawACTimeBarGraph = true; // 順位表に棒グラフ追加
 
-  if (kFoldingFooter) foldingFooter();
-  if (kRemoveBr) removeBr();
-  if (kStandingsDefault100) standingsDefault100();
-  if (kInOutColorize) inOutColorize();
-  if (kShowStandingsStatisticsInThead) showStandingsStatisticsInThead();
-  if (kDrawACTimeBarGraph) drawACTimeBarGraph();
+  try { foldingFooter(); } catch (ex) { }
+  try { removeBr(); } catch (ex) { }
+  try { standingsDefault100(); } catch (ex) { }
+  try { inOutColorize(); } catch (ex) { }
+  try { showStandingsStatisticsInThead(); } catch (ex) { }
+  try { drawACTimeBarGraph(); } catch (ex) { }
 
   function foldingFooter() {
+    if (!kFoldingFooter) return;
     const footerId = 'footer-tatt61880';
     const footer = $('.container > footer.footer').parent();
     footer.after(
@@ -64,6 +65,7 @@
   }
 
   function removeBr() {
+    if (!kRemoveBr) return;
     const br = $('#sourceCode').children('p').children('br');
     br.each(function(index, element) {
       const prevText = $(element).prev().text();
@@ -78,6 +80,7 @@
   }
 
   function standingsDefault100() {
+    if (!kStandingsDefault100) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
     $('.standings-per-page').each(function(index, element) {
@@ -88,6 +91,7 @@
   }
 
   function inOutColorize() {
+    if (!kInOutColorize) return;
     if (!location.href.match(/\/contests\/.*\/tasks.*$/)) return;
 
     $('h3').each(function(index, element) {
@@ -100,6 +104,7 @@
   }
 
   function showStandingsStatisticsInThead() {
+    if (!kShowStandingsStatisticsInThead) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
     const elem = $('#standings-tbody > .standings-statistics');
@@ -107,6 +112,7 @@
   }
 
   function drawACTimeBarGraph() {
+    if (!kDrawACTimeBarGraph) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
     function drawACTimeBarGraphSub() {
       const start = eval('startTime');
