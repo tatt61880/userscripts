@@ -35,14 +35,10 @@
     $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
   }
 
-  addEventListener('load', checkLanguage);
-
+  $(document).ready(checkLanguage);
   let timeoutId;
-  function eventFunc() {
-    // イベントが連続して発火したときに、最後の1回の後だけ処理するようにします。
+  $(document).on('mouseup keydown', function() {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(checkLanguage, 500);
-  }
-  addEventListener('mouseup', eventFunc, {passive: true});
-  addEventListener('keydown', eventFunc, {passive: true});
+  });
 })(jQuery);

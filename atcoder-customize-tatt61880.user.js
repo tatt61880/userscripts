@@ -106,15 +106,17 @@
 
   // 未完成 (完成しなさそう)
   // 入出力の表示変更
-  if (false) {
-    if (location.href.match(/^contests\/.*\/tasks.*$/)) {
-      $('h3').each(function(index, element) {
-        if ($(element).text().match(/^入力例.*$/)) {
-          $(element).parents('.part').css(
-              {'float': 'left', 'margin-right': '30px'}
-          );
-        }
-      });
-    }
+  const kInOutPos = false;
+  if (kInOutPos) inOutPos();
+  function inOutPos() {
+    if (!location.href.match(/^contests\/.*\/tasks.*$/)) return;
+
+    $('h3').each(function(index, element) {
+      if ($(element).text().match(/^入力例.*$/)) {
+        $(element).parents('.part').css(
+          {'float': 'left', 'margin-right': '30px'}
+        );
+      }
+    });
   }
 })(jQuery);

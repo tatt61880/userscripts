@@ -60,23 +60,23 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
 
     // atcoder-problem-navigator.user.js と同時に使用した際、
     // ページを開き直すとスクロール位置がずれるので対策。
-    scrollTo(0, 0);
+    window.scrollTo(0, 0);
 
     const key = KEY_PREFIX + location.href.match(/\/submissions\/(\d+)$/)[1];
     localStorage[key] = JSON.stringify(resultNums);
   } else {
     $('table').eq(0).children('tbody').children('tr').each(
-        function(index, elem) {
-          const href = $(elem).children().eq(-1).children().eq(0).attr('href');
-          if (href !== undefined) {
-            const key = KEY_PREFIX + href.match(/(\d+)$/)[1];
-            const storageData = localStorage[key];
-            if (storageData !== undefined) {
-              const resultNums = JSON.parse(storageData);
-              const time = $(elem).children().eq(0).children().eq(0);
-              time.after('<br>' + createSummaryHtml(resultNums));
-            }
+      function(index, elem) {
+        const href = $(elem).children().eq(-1).children().eq(0).attr('href');
+        if (href !== undefined) {
+          const key = KEY_PREFIX + href.match(/(\d+)$/)[1];
+          const storageData = localStorage[key];
+          if (storageData !== undefined) {
+            const resultNums = JSON.parse(storageData);
+            const time = $(elem).children().eq(0).children().eq(0);
+            time.after('<br>' + createSummaryHtml(resultNums));
           }
-        });
+        }
+      });
   }
 })(jQuery);

@@ -62,7 +62,7 @@
         if (text.match(kRegexTemplateEnd)) templateLines = 0;
       });
 
-      $('.atcoder-folding-sourcecode-btn').click(function(e) {
+      $('.atcoder-folding-sourcecode-btn').click(function() {
         const $this = $(this);
         const state = $this.text() == $this.data('on-text');
         $this.text($this.data(state ? 'off-text' : 'on-text'));

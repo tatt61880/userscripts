@@ -1,6 +1,15 @@
 {
     "parser": "babel-eslint",
     "extends": "eslint:recommended",
+    "globals": {
+        "window": false,
+        "document": false,
+        "location": false,
+        "setTimeout": false,
+        "clearTimeout": false,
+        "localStorage": false,
+        "jQuery": false
+    },
     "rules": {
         "require-jsdoc": [
             "off"

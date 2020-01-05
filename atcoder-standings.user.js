@@ -10,7 +10,7 @@
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-standings.user.js
 // ==/UserScript==
 
-(function() {
+(function($) {
   'use strict';
   function drawACTimeBarGraph() {
     const contestTimeSec = (endTime - startTime) / 1000;
@@ -37,11 +37,11 @@
     );
   }
 
-  addEventListener('load', drawACTimeBarGraph);
+  $(document).ready(drawACTimeBarGraph);
 
   let timeoutId;
-  addEventListener('mouseup', function() {
+  $(document).on('mouseup', function() {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(drawACTimeBarGraph, 500);
   });
-})();
+})(jQuery);
