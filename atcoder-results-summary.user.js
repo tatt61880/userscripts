@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.3.3
+// @version     1.3.4
 // @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
@@ -12,6 +12,8 @@
 
 /*
 デバッグ用の参考
+・WA/TLEの結果が沢山で苦戦した回
+https://atcoder.jp/contests/agc029/submissions?f.User=tatt61880
 ・1回の提出で AC/RE/TLE/WA が全て出ている提出。
 https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
 */
