@@ -32,7 +32,7 @@
     const footerId = 'footer-tatt61880';
     const footer = $('.container > footer.footer').parent();
     footer.after(
-        '<div style="text-align: center;">' +
+      '<div style="text-align: center;">' +
         '<a id="atcoder-customize-tatt61880-footer-btn" class="btn-text"' +
         ' data-on-text="フッターを表示"' +
         ' data-off-text="フッターを非表示">フッターを表示</a>' +

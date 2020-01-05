@@ -67,11 +67,11 @@
         const state = $this.text() == $this.data('on-text');
         $this.text($this.data(state ? 'off-text' : 'on-text'));
         $('#submission-code > ol > li').eq($this.data('from') - 1)
-            .nextAll('li').each(function(index, element) {
-              $(element).css(state ? showCss : hideCss);
-              const text = $(element).text();
-              if (text.match(kRegexTemplateEnd)) return false;
-            });
+          .nextAll('li').each(function(index, element) {
+            $(element).css(state ? showCss : hideCss);
+            const text = $(element).text();
+            if (text.match(kRegexTemplateEnd)) return false;
+          });
       });
     }
   };
