@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.3.4
+// @version     1.3.5
 // @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
@@ -30,14 +30,13 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
         results.push(result);
       }
     }
-    results.sort();
+    results.sort(); // ソートしておくとACが先頭に来て都合が良さそうです。
 
     let summary = '';
     results.forEach(function(result) {
       if (summary != '') summary += ' &nbsp; ';
       const label = result == 'AC' ? 'label-success' : 'label-warning';
-      summary +=
-                '<span class=\'label ' + label + '\'>' + result + '</span>';
+      summary += '<span class=\'label ' + label + '\'>' + result + '</span>';
       summary += ' ' + resultNums[result];
     });
     return summary;
@@ -54,11 +53,15 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
       }
     });
 
-    const elem = $('.col-sm-12').eq(1);
-    const p = elem.children('p');
-    p.eq(1).before('<p>' + createSummaryHtml(resultNums) + '</p>');
-    p.eq(0).css('display', 'none');
-    elem.children('hr').eq(0).css('display', 'none');
+    const $elem = $('.col-sm-12').eq(1); // TODO: Webサイトの構成の変更に強そうなセレクタの模索。
+    const ps = $elem.children('p');
+    ps.eq(1).before('<p>' + createSummaryHtml(resultNums) + '</p>');
+    if (~document.title.indexOf(ps.eq(0).text().trim())) {
+      // ページタイトルに含まれている情報なので、スペースの節約のために非表示にします。
+      ps.eq(0).hide();
+      // hrも多分要らないでしょう。
+      $elem.children('hr').eq(0).hide();
+    }
 
     // atcoder-problem-navigator.user.js と同時に使用した際、
     // ページを開き直すとスクロール位置がずれるので対策。
