@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-standings
 // @namespace   https://github.com/tatt61880
-// @version     1.2.4
+// @version     1.3.0
 // @description AtCoderの順位表のAC時刻に棒グラフ表示を追加します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/standings
@@ -13,7 +13,9 @@
 (function($) {
   'use strict';
   function drawACTimeBarGraph() {
-    const contestTimeSec = (endTime - startTime) / 1000;
+    const start = eval('startTime');
+    const end = eval('endTime');
+    const contestTimeSec = (end - start) / 1000;
     // console.log('contestTimeSec: ' + contestTimeSec);
     [].forEach.call(
         document.getElementsByClassName('standings-result'),
