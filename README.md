@@ -4,11 +4,11 @@
 
 AtCoderの提出詳細ページの先頭部分に、提出結果(AC/RE/TLE/WAなど)の数のまとめを表示します。
 
-![atcoder-results-summary_1](https://github.com/tatt61880/images/atcoder-results-summary_1.png)
+![atcoder-results-summary_1](https://github.com/tatt61880/userscripts/images/atcoder-results-summary_1.png)
 
 詳細ページで確認した結果は、詳細一覧ページにも反映されます 。(localStorageを使用します。)
 
-![atcoder-results-summary_2](https://github.com/tatt61880/images/atcoder-results-summary_2.png)
+![atcoder-results-summary_2](https://github.com/tatt61880/userscripts/images/atcoder-results-summary_2.png)
 
 
 
