@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.3.5
+// @version     1.3.7
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -124,26 +124,19 @@
       const end = eval('endTime');
       const contestTimeSec = (end - start) / 1000;
       // console.log('contestTimeSec: ' + contestTimeSec);
-      [].forEach.call(
-        document.getElementsByClassName('standings-result'),
-        function(x) {
-          const elem = x.children[1];
-          if (elem === undefined) return;
-          const timeStr = elem.textContent;
-          const timeSec =
-            Number(timeStr.substr(0, timeStr.length - 3)) * 60 +
-            Number(timeStr.substr(-2));
-          const parcent = Math.round(100 * timeSec / contestTimeSec);
-          const style =
-            'background: ' +
-            'linear-gradient(to right, rgb(250, 250, 150) ' +
-            parcent +
-            '%, transparent ' +
-            parcent +
-            '%);';
-          elem.setAttribute('style', style);
-        }
-      );
+      $('.standings-result').each(function(index, element) {
+        const elem = element.children[1];
+        if (elem === undefined) return;
+        const timeStr = elem.textContent;
+        const timeSec =
+              Number(timeStr.substr(0, timeStr.length - 3)) * 60 +
+              Number(timeStr.substr(-2));
+        const parcent = Math.round(100 * timeSec / contestTimeSec);
+        const style =
+              'background: linear-gradient(to right, rgb(250, 250, 150) ' +
+              parcent + '%, transparent ' + parcent + '%);';
+        elem.setAttribute('style', style);
+      });
     }
 
     $(document).ready(drawACTimeBarGraphSub);

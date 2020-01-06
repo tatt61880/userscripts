@@ -2,6 +2,7 @@
   "name": "userscripts",
   "version": "1.0.0",
   "description": "userscripts by tatt61880",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tatt61880/userscripts.git"
@@ -17,5 +18,8 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0"
+  },
+  "dependencies": {
+    "npm": "^6.13.4"
   }
 }
