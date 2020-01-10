@@ -12,6 +12,16 @@ AtCoderの提出詳細ページの先頭部分に、提出結果(AC/RE/TLE/WAな
 
 
 
+----
+
+##  [atcoder-source-code-expand.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-source-code-expand.user.js)
+
+AtCoderの提出結果詳細の表示時に「拡げる」を自動で押します。
+
+
+
+----
+
 ##  [atcoder-customize-tatt61880.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js)
 
 私( [@tatt61880](https://twitter.com/tatt61880) )の好みに合わせて、AtCoderのサイトを細かく調整します。 使用は非推奨です。
