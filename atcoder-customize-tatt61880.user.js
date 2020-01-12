@@ -192,8 +192,8 @@
     const kRegexTemplateEnd = new RegExp('^//}}}$');
 
     /* 上記以外の例
-    const kRegexTemplateBegin = new RegExp('^#if 0$');
-    const kRegexTemplateEnd = new RegExp('^#endif$');
+    const kRegexTemplateBegin = new RegExp('^// template begin$');
+    const kRegexTemplateEnd = new RegExp('^// template end$');
     */
 
     if (!location.href.match(/\/submissions\/\d+$/)) return;
