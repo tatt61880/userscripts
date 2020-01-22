@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.2
+// @version     1.4.3
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -213,7 +213,7 @@
       const showCss = {height: height, visibility: 'visible'};
       const hideCss = {height: 0, visibility: 'hidden'};
       let level = 0;
-      const kOnText = '表示';
+      const kOnText = '表示 ---------------------------------------------';
       const kOffText = '非表示';
       li.each(function(index, element) {
         lines++;
