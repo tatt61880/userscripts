@@ -270,26 +270,25 @@
         let level = 1;
         li.eq($this.data('from') - 1)
           .nextAll('li').each(function(index, element) {
-          const currentLevel = $(element).data('level');
-          if (level === undefined) return false;
+            const currentLevel = $(element).data('level');
+            if (level === undefined) return false;
 
-          const text = $(element).text();
-          if (
-            text.match(kRegexTemplateBegin) &&
+            const text = $(element).text();
+            if (
+              text.match(kRegexTemplateBegin) &&
             !text.match(kRegexTemplateEnd)
-          ) {
-            level++;
-          }
-
-          $(element).data('level', currentLevel + add);
-          if (text.match(kRegexTemplateEnd)) {
-            level--;
-            if (level == 0){
-              console.log($this.data('from') + index);
-              return false;
+            ) {
+              level++;
             }
-          }
-        });
+
+            $(element).data('level', currentLevel + add);
+            if (text.match(kRegexTemplateEnd)) {
+              level--;
+              if (level == 0){
+                return false;
+              }
+            }
+          });
         update(li);
       });
     }
