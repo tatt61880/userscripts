@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.0
+// @version     1.4.1
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -208,13 +208,14 @@
       clearTimeout(id);
       let templateLines = 0;
       let lines = 0;
-      const height = $('#submission-code > ol > li').css('height');
+      const li = $('#submission-code > ol > li');
+      const height = li.css('height');
       const showCss = {height: height, visibility: 'visible'};
       const hideCss = {height: 0, visibility: 'hidden'};
       let level = 0;
       const kOnText = '表示';
       const kOffText = '非表示';
-      $('#submission-code > ol > li').each(function(index, element) {
+      li.each(function(index, element) {
         lines++;
         const text = $(element).text();
         if (
@@ -224,6 +225,7 @@
           level++;
           templateLines = 1;
         }
+
         if (templateLines) {
           if (templateLines == 1) {
             const span =
@@ -233,7 +235,7 @@
                   '">' + kOnText + '</a></span>';
             $(element).children().eq(-1).after(span);
           } else {
-            $(element).css(hideCss);
+            $(element).data('level', level);
           }
           templateLines++;
         }
@@ -245,16 +247,50 @@
         }
       });
 
+      update(li);
+
+      function update(li) {
+        li.each(function(index, element) {
+          const level = $(element).data('level');
+          if (level === undefined) return;
+          if (level) {
+            $(element).css(hideCss);
+          } else {
+            $(element).css(showCss);
+          }
+        });
+      }
+
       $('.atcoder-folding-sourcecode-btn').click(function() {
         const $this = $(this);
         const state = $this.text() == kOnText;
         $this.text(state ? kOffText : kOnText);
-        $('#submission-code > ol > li').eq($this.data('from') - 1)
+        const li = $('#submission-code > ol > li');
+        const add = state ? -1 : 1;
+        let level = 1;
+        li.eq($this.data('from') - 1)
           .nextAll('li').each(function(index, element) {
-            $(element).css(state ? showCss : hideCss);
-            const text = $(element).text();
-            if (text.match(kRegexTemplateEnd)) return false;
-          });
+          const currentLevel = $(element).data('level');
+          if (level === undefined) return false;
+
+          const text = $(element).text();
+          if (
+            text.match(kRegexTemplateBegin) &&
+            !text.match(kRegexTemplateEnd)
+          ) {
+            level++;
+          }
+
+          $(element).data('level', currentLevel + add);
+          if (text.match(kRegexTemplateEnd)) {
+            level--;
+            if (level == 0){
+              console.log($this.data('from') + index);
+              return false;
+            }
+          }
+        });
+        update(li);
       });
     }
   }
