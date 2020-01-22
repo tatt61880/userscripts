@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.3.9
+// @version     1.4.0
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -188,8 +188,8 @@
   function foldingSourcecode() {
     if (!kFoldingSourcecode) return;
     // 以下の2行を適宜変更して使用してください。
-    const kRegexTemplateBegin = new RegExp('^//{{{$');
-    const kRegexTemplateEnd = new RegExp('^//}}}$');
+    const kRegexTemplateBegin = new RegExp('^//{{{');
+    const kRegexTemplateEnd = new RegExp('^//}}}');
 
     /* 上記以外の例
     const kRegexTemplateBegin = new RegExp('^// template begin$');
@@ -203,52 +203,59 @@
     function foldingSourcecodeSub() {
       const id = setTimeout(foldingSourcecodeSub, 100);
       if (count > 50) clearTimeout(id);
-      if ($('.prettyprinted').length) {
-        clearTimeout(id);
-        let templateLines = 0;
-        let lines = 0;
-        const height = $('#submission-code > ol > li').css('height');
-        const showCss = {height: height, visibility: 'visible'};
-        const hideCss = {height: 0, visibility: 'hidden'};
-        $('#submission-code > ol > li').each(function(index, element) {
-          lines++;
-          const text = $(element).text();
-          if (
-            !templateLines &&
-              text.match(kRegexTemplateBegin) &&
-              !text.match(kRegexTemplateEnd)
-          ) {
-            templateLines = 1;
-          }
-          if (templateLines) {
-            if (templateLines == 1) {
-              const span =
-                '<span> <a class="btn-text atcoder-folding-sourcecode-btn"' +
-                ' data-on-text="表示" data-off-text="非表示"' +
-                ' data-from="' +
-                lines +
-                '">表示</a></span>';
-              $(element).children().eq(-1).after(span);
-            } else {
-              $(element).css(hideCss);
-            }
-            templateLines++;
-          }
-          if (text.match(kRegexTemplateEnd)) templateLines = 0;
-        });
+      if ($('.prettyprinted').length == 0) return;
 
-        $('.atcoder-folding-sourcecode-btn').click(function() {
-          const $this = $(this);
-          const state = $this.text() == $this.data('on-text');
-          $this.text($this.data(state ? 'off-text' : 'on-text'));
-          $('#submission-code > ol > li').eq($this.data('from') - 1)
-            .nextAll('li').each(function(index, element) {
-              $(element).css(state ? showCss : hideCss);
-              const text = $(element).text();
-              if (text.match(kRegexTemplateEnd)) return false;
-            });
-        });
-      }
+      clearTimeout(id);
+      let templateLines = 0;
+      let lines = 0;
+      const height = $('#submission-code > ol > li').css('height');
+      const showCss = {height: height, visibility: 'visible'};
+      const hideCss = {height: 0, visibility: 'hidden'};
+      let level = 0;
+      const kOnText = '表示';
+      const kOffText = '非表示';
+      $('#submission-code > ol > li').each(function(index, element) {
+        lines++;
+        const text = $(element).text();
+        if (
+          text.match(kRegexTemplateBegin) &&
+          !text.match(kRegexTemplateEnd)
+        ) {
+          level++;
+          templateLines = 1;
+        }
+        if (templateLines) {
+          if (templateLines == 1) {
+            const span =
+                  '<span> <a class="btn-text atcoder-folding-sourcecode-btn"' +
+                  ' data-from="' +
+                  lines +
+                  '">' + kOnText + '</a></span>';
+            $(element).children().eq(-1).after(span);
+          } else {
+            $(element).css(hideCss);
+          }
+          templateLines++;
+        }
+        if (text.match(kRegexTemplateEnd)) {
+          level--;
+          if (level == 0){
+            templateLines = 0;
+          }
+        }
+      });
+
+      $('.atcoder-folding-sourcecode-btn').click(function() {
+        const $this = $(this);
+        const state = $this.text() == kOnText;
+        $this.text(state ? kOffText : kOnText);
+        $('#submission-code > ol > li').eq($this.data('from') - 1)
+          .nextAll('li').each(function(index, element) {
+            $(element).css(state ? showCss : hideCss);
+            const text = $(element).text();
+            if (text.match(kRegexTemplateEnd)) return false;
+          });
+      });
     }
   }
 
