@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.1
+// @version     1.4.2
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -234,9 +234,9 @@
                   lines +
                   '">' + kOnText + '</a></span>';
             $(element).children().eq(-1).after(span);
-          } else {
-            $(element).data('level', level);
+            $(element).data('start', 1);
           }
+          $(element).data('level', level);
           templateLines++;
         }
         if (text.match(kRegexTemplateEnd)) {
@@ -251,8 +251,10 @@
 
       function update(li) {
         li.each(function(index, element) {
-          const level = $(element).data('level');
+          let level = $(element).data('level');
           if (level === undefined) return;
+          if ($(element).data('start') !== undefined) level--;
+
           if (level) {
             $(element).css(hideCss);
           } else {
