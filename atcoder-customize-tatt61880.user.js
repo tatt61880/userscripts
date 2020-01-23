@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.3
+// @version     1.4.4
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -213,7 +213,10 @@
       const showCss = {height: height, visibility: 'visible'};
       const hideCss = {height: 0, visibility: 'hidden'};
       let level = 0;
-      const kOnText = '表示 ---------------------------------------------';
+      const kOnText = '表示';
+      function onText(text){
+        return kOnText + ' ' + '-'.repeat(80 - text.length);
+      }
       const kOffText = '非表示';
       li.each(function(index, element) {
         lines++;
@@ -232,7 +235,7 @@
                   '<span> <a class="btn-text atcoder-folding-sourcecode-btn"' +
                   ' data-from="' +
                   lines +
-                  '">' + kOnText + '</a></span>';
+                  '">' + onText(text) + '</a></span>';
             $(element).children().eq(-1).after(span);
             $(element).data('start', 1);
           }
@@ -265,8 +268,9 @@
 
       $('.atcoder-folding-sourcecode-btn').click(function() {
         const $this = $(this);
-        const state = $this.text() == kOnText;
-        $this.text(state ? kOffText : kOnText);
+        const text = $this.parent().prev().text();
+        const state = $this.text() != kOffText;
+        $this.text(state ? kOffText : onText(text));
         const li = $('#submission-code > ol > li');
         const add = state ? -1 : 1;
         let level = 1;
