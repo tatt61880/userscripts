@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.5
+// @version     1.4.6
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -255,7 +255,7 @@
       function update(li) {
         li.each(function(index, element) {
           let level = $(element).data('level');
-          if (level === undefined) return;
+          if (level === undefined) return true;
           if ($(element).data('start') !== undefined) level--;
 
           if (level) {
