@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.6
+// @version     1.4.8
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -187,14 +187,15 @@
 
   function foldingSourcecode() {
     if (!kFoldingSourcecode) return;
-    // 以下の2行を適宜変更して使用してください。
-    const kRegexTemplateBegin = new RegExp('^//{{{');
-    const kRegexTemplateEnd = new RegExp('^//}}}');
+    let users = [];
 
-    /* 上記以外の例
-    const kRegexTemplateBegin = new RegExp('^// template begin$');
-    const kRegexTemplateEnd = new RegExp('^// template end$');
-    */
+    // 各ユーザーのテンプレートを定義して使用します。
+    users.tatt61880 = [new RegExp('^//{{{'), new RegExp('^//}}}')];
+
+    const username = $('table').eq(0).children('tbody').children().eq(2).children().eq(1).text().replace(/\s/g, '');
+    if (users[username] === undefined) return;
+    const kRegexTemplateBegin = users[username][0];
+    const kRegexTemplateEnd = users[username][1];
 
     if (!location.href.match(/\/submissions\/\d+$/)) return;
 
@@ -206,6 +207,7 @@
       if ($('.prettyprinted').length == 0) return;
 
       clearTimeout(id);
+
       let templateLines = 0;
       let lines = 0;
       const li = $('#submission-code > ol > li');
