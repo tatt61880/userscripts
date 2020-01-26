@@ -22,6 +22,14 @@ AtCoderの提出結果詳細の表示時に「拡げる」を自動で押しま�
 
 ----
 
+##  [atcoder-standings-to-submissions.user](https://github.com/tatt61880/userscripts/raw/master/atcoder-standings-to-submissions.user.js)
+
+AtCoderの終了後のコンテストの順位表のAC時刻の箇所をダブルクリックすることで、提出コードのページを別タブで開きます。
+
+
+
+----
+
 ##  [atcoder-customize-tatt61880.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js)
 
 私( [@tatt61880](https://twitter.com/tatt61880) )の好みに合わせて、AtCoderのサイトを細かく調整します。 使用は非推奨です。
