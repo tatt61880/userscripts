@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.8
+// @version     1.4.9
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -191,6 +191,7 @@
 
     // 各ユーザーのテンプレートを定義して使用します。
     users.tatt61880 = [new RegExp('^//{{{'), new RegExp('^//}}}')];
+    users.kmjp = [new RegExp(String.raw`^#include <bits/stdc\+\+\.h>`), new RegExp('^//-------------------------------------------------------$')];
 
     const username = $('table').eq(0).children('tbody').children().eq(2).children().eq(1).text().replace(/\s/g, '');
     if (users[username] === undefined) return;
