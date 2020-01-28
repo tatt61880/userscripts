@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-standings-to-submissions
 // @namespace   https://github.com/tatt61880
-// @version     1.1.0
+// @version     1.2.0
 // @description AtCoderの終了後のコンテストの順位表のAC時刻の箇所をダブルクリックすることで、提出コードのページを表示するようにします。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*/standings*
@@ -24,7 +24,8 @@
     let problems = [];
     let problemsId = 0;
     $thead.children().each(function(index, element) {
-      if ($(element).children().eq(0).text() != '順位') return true;
+      const text0 = $(element).children().eq(0).text();
+      if (text0 != '順位' && text0 != 'Rank') return true;
       $(element).children().each(function(index, element) {
         const $href = $(element).children('a').attr('href');
         if ($href === undefined) return true;
@@ -41,7 +42,7 @@
     $.ajax({type: 'GET', url: url, dataType: 'html'}).then(
       function (data) {
         const prev = data;
-        data = data.replace(/[\d\D]*?href="(.*?)">詳細<[\d\D]*/, '$1');
+        data = data.replace(/[\d\D]*?href="(.*?)">(詳細|Detail)<[\d\D]*/, '$1');
         if (data == prev) {
           window.alert('[atcoder-standings-to-submissions.user.js]\nデータがありません。');
           return;
