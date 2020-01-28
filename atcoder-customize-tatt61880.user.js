@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.4.9
+// @version     1.5.0
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -22,6 +22,7 @@
   const kDrawACTimeBarGraph = true; // 順位表に棒グラフ追加
   const kLanguageCheck = true; // 提出言語が普段と違うときに、目立つようにする。
   const kFoldingSourcecode = true; // ソースコードのテンプレート部分の折りたたみ。
+  const kResultsSummaryAdditionalInfo = true;
 
   try { foldingFooter(); } catch (ex) { }
   try { removeBr(); } catch (ex) { }
@@ -31,6 +32,7 @@
   try { drawACTimeBarGraph(); } catch (ex) { }
   try { languageCheck(); } catch (ex) { }
   try { foldingSourcecode(); } catch (ex) { }
+  try { resultsSummaryAdditionalInfo(); } catch (ex) { }
 
   function foldingFooter() {
     if (!kFoldingFooter) return;
@@ -187,6 +189,8 @@
 
   function foldingSourcecode() {
     if (!kFoldingSourcecode) return;
+    if (!location.href.match(/\/submissions\/\d+$/)) return;
+
     let users = [];
 
     // 各ユーザーのテンプレートを定義して使用します。
@@ -197,8 +201,6 @@
     if (users[username] === undefined) return;
     const kRegexTemplateBegin = users[username][0];
     const kRegexTemplateEnd = users[username][1];
-
-    if (!location.href.match(/\/submissions\/\d+$/)) return;
 
     const count = 0;
     foldingSourcecodeSub();
@@ -301,6 +303,19 @@
         update(li);
       });
     }
+  }
+
+  function resultsSummaryAdditionalInfo() {
+    if (!kResultsSummaryAdditionalInfo) return;
+    if (!location.href.match(/\/submissions\/\d+$/)) return;
+    const problem = $('table').eq(0).children('tbody').children().eq(1).children().eq(1).text();
+    const username = $('table').eq(0).children('tbody').children().eq(2).children().eq(1).text().replace(/\s/g, '');
+    const lang = $('table').eq(0).children('tbody').children().eq(3).children().eq(1).text();
+    const time = $('table').eq(0).children('tbody').children().eq(7).children().eq(1).text();
+    const mem = $('table').eq(0).children('tbody').children().eq(8).children().eq(1).text();
+    const $div = $('.col-sm-12').eq(1).children('div').eq(0);
+    const $pos = $div.prev().prev();
+    $pos.after('<span>' + problem + ' / ' + username + ' / ' + lang + ' / ' + time + ' / ' + mem + '</span>');
   }
 
   // 未完成 (完成しなさそう)
