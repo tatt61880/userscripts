@@ -34,7 +34,8 @@
   try { foldingSourcecode(); } catch (ex) { }
   try { resultsSummaryAdditionalInfo(); } catch (ex) { }
 
-  function foldingFooter() {
+
+  function foldingFooter() { //{{{
     if (!kFoldingFooter) return;
     const footerId = 'footer-tatt61880';
     const footer = $('.container > footer.footer').parent();
@@ -69,8 +70,9 @@
       }
     });
   }
+  //}}}
 
-  function removeBr() {
+  function removeBr() { //{{{
     if (!kRemoveBr) return;
     const br = $('#sourceCode').children('p').children('br');
     br.each(function(index, element) {
@@ -84,8 +86,9 @@
       }
     });
   }
+  //}}}
 
-  function standingsDefault100() {
+  function standingsDefault100() { //{{{
     if (!kStandingsDefault100) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
@@ -95,8 +98,9 @@
       }
     });
   }
+  //}}}
 
-  function inOutColorize() {
+  function inOutColorize() { //{{{
     if (!kInOutColorize) return;
     if (!location.href.match(/\/contests\/.*\/tasks.*$/)) return;
 
@@ -108,8 +112,9 @@
       }
     });
   }
+  //}}}
 
-  function showStandingsStatisticsInThead() {
+  function showStandingsStatisticsInThead() { //{{{
     if (!kShowStandingsStatisticsInThead) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
@@ -118,8 +123,9 @@
     const elem2 = $('#standings-tbody > .standings-fa');
     $('table > thead').prepend(elem2.prop('outerHTML'));
   }
+  //}}}
 
-  function drawACTimeBarGraph() {
+  function drawACTimeBarGraph() { //{{{
     if (!kDrawACTimeBarGraph) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
@@ -151,8 +157,9 @@
       timeoutId = setTimeout(drawACTimeBarGraphSub, 500);
     });
   }
+  //}}}
 
-  function languageCheck() {
+  function languageCheck() { //{{{
     if (!kLanguageCheck) return;
     if (!location.href.match(/\/contests\//)) return;
 
@@ -186,8 +193,9 @@
       timeoutId = setTimeout(checkLanguage, 500);
     });
   }
+  //}}}
 
-  function foldingSourcecode() {
+  function foldingSourcecode() { //{{{
     if (!kFoldingSourcecode) return;
     if (!location.href.match(/\/submissions\/\d+$/)) return;
 
@@ -239,9 +247,7 @@
           if (templateLines == 1) {
             const span =
                   '<span> <a class="btn-text atcoder-folding-sourcecode-btn"' +
-                  ' data-from="' +
-                  lines +
-                  '">' + onText(text) + '</a></span>';
+                  ' data-from="' + lines + '">' + onText(text) + '</a></span>';
             $(element).children().eq(-1).after(span);
             $(element).data('start', 1);
           }
@@ -305,8 +311,9 @@
       });
     }
   }
+  //}}}
 
-  function resultsSummaryAdditionalInfo() {
+  function resultsSummaryAdditionalInfo() { //{{{
     if (!kResultsSummaryAdditionalInfo) return;
     if (!location.href.match(/\/submissions\/\d+$/)) return;
     const problem = $('table').eq(0).children('tbody').children().eq(1).children().eq(1).text();
@@ -318,12 +325,13 @@
     const $pos = $div.prev().prev();
     $pos.after('<span>' + problem + ' / ' + username + ' / ' + lang + ' / ' + time + ' / ' + mem + '</span>');
   }
+  //}}}
 
   // 未完成 (完成しなさそう)
   // 入出力の表示変更
   const kInOutPos = false;
   if (kInOutPos) inOutPos();
-  function inOutPos() {
+  function inOutPos() { //{{{
     if (!location.href.match(/\/contests\/.*\/tasks.*$/)) return;
 
     $('h3').each(function(index, element) {
@@ -334,4 +342,5 @@
       }
     });
   }
+  //}}}
 })(jQuery);
