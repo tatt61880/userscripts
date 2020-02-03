@@ -196,6 +196,7 @@
     // 各ユーザーのテンプレートを定義して使用します。
     users.tatt61880 = [new RegExp('^//{{{'), new RegExp('^//}}}')];
     users.kmjp = [new RegExp(String.raw`^#include <bits/stdc\+\+\.h>`), new RegExp('^//-------------------------------------------------------$')];
+    users.satanic0258 = [new RegExp(String.raw`^// need$`), new RegExp(String.raw`^// ------------>8------------------------------------->8------------$`)];
 
     const username = $('table').eq(0).children('tbody').children().eq(2).children().eq(1).text().replace(/\s/g, '');
     if (users[username] === undefined) return;
