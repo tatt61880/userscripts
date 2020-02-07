@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-standings-to-submissions
 // @namespace   https://github.com/tatt61880
-// @version     1.2.0
+// @version     1.3.0
 // @description AtCoderの終了後のコンテストの順位表のAC時刻の箇所をダブルクリックすることで、提出コードのページを表示するようにします。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*/standings*
@@ -13,31 +13,67 @@
 (function($) {
   'use strict';
 
-  $(document).dblclick(function (event) {
+  function getProblemUrl(event) {
     const $td = $(event.target).parent();
-    if ($td.attr('class') != 'standings-result') return;
+    if ($td.attr('class') != 'standings-result') return null;
     const $tr = $td.parent();
-    const index = $tr.children().index($td);
-    const userid = $tr.children().eq(1).children('a').attr('href').replace(/.*\//, '');
-    if (index < 3) return;
-    const $thead = $('thead');
+
     let problems = [];
     let problemsId = 0;
-    $thead.children().each(function(index, element) {
-      const text0 = $(element).children().eq(0).text();
-      if (text0 != '順位' && text0 != 'Rank') return true;
+    const index = $tr.children().index($td);
+    if (index < 3) return null;
+    $('thead').children().each(function(index, element) {
+      const text1 = $(element).children().eq(0).text();
+      if (text1 != '順位' && text1 != 'Rank') return true;
       $(element).children().each(function(index, element) {
         const $href = $(element).children('a').attr('href');
         if ($href === undefined) return true;
         problems[problemsId++] = $href;
       });
     });
+    return problems[index - 3];
+  }
 
-    const problem = problems[index - 3];
-    const contestId = problem.replace(/\/contests\/(.*)\/tasks\/.*/, '$1');
-    const problemId = problem.replace(/.*\//, '');
+  function getUserId(event) {
+    const $td = $(event.target).parent();
+    if ($td.attr('class') != 'standings-result') return null;
+    const $tr = $td.parent();
+    const userId = $tr.children().eq(1).children('a').attr('href').replace(/.*\//, '');
+    return userId;
+  }
 
-    const url = 'https://atcoder.jp/contests/' + contestId + '/submissions?f.Language=&f.Status=AC&f.Task=' + problemId + '&f.User=' + userid + '&orderBy=created';
+  function getContestId(problemUrl) {
+    return problemUrl.replace(/\/contests\/(.*)\/tasks\/.*/, '$1');
+  }
+
+  function getProblemId(problemUrl) {
+    return problemUrl.replace(/.*\//, '');
+  }
+
+  $(document).click(function (event) {
+    const $td = $(event.target).parent();
+    if ($td.attr('class') != 'standings-result') return;
+    let key_event = event;
+    if (!key_event.altKey) return;
+
+    const problemUrl = getProblemUrl(event);
+    if (problemUrl == null) return;
+    const userId = getUserId(event);
+    const contestId = getContestId(problemUrl);
+    const problemId = getProblemId(problemUrl);
+
+    const url = 'https://atcoder.jp/contests/' + contestId + '/submissions?desc=true&f.Language=&f.Task=' + problemId + '&f.User=' + userId + '&orderBy=created';
+    window.open(url, '_blank') ;
+  });
+
+  $(document).dblclick(function (event) {
+    const problemUrl = getProblemUrl(event);
+    if (problemUrl == null) return;
+    const userId = getUserId(event);
+    const contestId = getContestId(problemUrl);
+    const problemId = getProblemId(problemUrl);
+
+    const url = 'https://atcoder.jp/contests/' + contestId + '/submissions?f.Language=&f.Status=AC&f.Task=' + problemId + '&f.User=' + userId + '&orderBy=created';
 
     $.ajax({type: 'GET', url: url, dataType: 'html'}).then(
       function (data) {
