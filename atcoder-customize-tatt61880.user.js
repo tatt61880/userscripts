@@ -34,7 +34,6 @@
   try { foldingSourcecode(); } catch (ex) { }
   try { resultsSummaryAdditionalInfo(); } catch (ex) { }
 
-
   function foldingFooter() { //{{{
     if (!kFoldingFooter) return;
     const footerId = 'footer-tatt61880';
