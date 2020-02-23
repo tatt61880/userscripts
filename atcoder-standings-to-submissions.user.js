@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-standings-to-submissions
 // @namespace   https://github.com/tatt61880
-// @version     1.3.0
+// @version     1.4.1
 // @description AtCoderの終了後のコンテストの順位表のAC時刻の箇所をダブルクリックすることで、提出コードのページを表示するようにします。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*/standings*
@@ -13,15 +13,22 @@
 (function($) {
   'use strict';
 
+  function isStandingResult($td) {
+    return $td.attr('class') == 'standings-result';
+  }
+  function isStandingFa($td) {
+    return $td.parent().attr('class') == 'standings-fa';
+  }
+
   function getProblemUrl(event) {
     const $td = $(event.target).parent();
-    if ($td.attr('class') != 'standings-result') return null;
+    if (!isStandingResult($td) && !isStandingFa($td)) return null;
     const $tr = $td.parent();
 
     let problems = [];
     let problemsId = 0;
-    const index = $tr.children().index($td);
-    if (index < 3) return null;
+    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : 3);
+    if (idx < 0) return null;
     $('thead').children().each(function(index, element) {
       const text1 = $(element).children().eq(0).text();
       if (text1 != '順位' && text1 != 'Rank') return true;
@@ -31,15 +38,20 @@
         problems[problemsId++] = $href;
       });
     });
-    return problems[index - 3];
+    return problems[idx];
   }
 
   function getUserId(event) {
     const $td = $(event.target).parent();
-    if ($td.attr('class') != 'standings-result') return null;
     const $tr = $td.parent();
-    const userId = $tr.children().eq(1).children('a').attr('href').replace(/.*\//, '');
-    return userId;
+    if (isStandingResult($td)) {
+      const userId = $tr.children().eq(1).children('a').attr('href').replace(/.*\//, '');
+      return userId;
+    } else if (isStandingFa($td)) {
+      const userId = $td.children().eq(0).children().eq(0).text().trim();
+      return userId;
+    }
+    return null;
   }
 
   function getContestId(problemUrl) {
