@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.5.0
+// @version     1.5.1
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -316,6 +316,7 @@
   function resultsSummaryAdditionalInfo() { //{{{
     if (!kResultsSummaryAdditionalInfo) return;
     if (!location.href.match(/\/submissions\/\d+$/)) return;
+    const date = $('table').eq(0).children('tbody').children().eq(0).children().eq(1).text();
     const problem = $('table').eq(0).children('tbody').children().eq(1).children().eq(1).text();
     const username = $('table').eq(0).children('tbody').children().eq(2).children().eq(1).text().replace(/\s/g, '');
     const lang = $('table').eq(0).children('tbody').children().eq(3).children().eq(1).text();
@@ -323,7 +324,7 @@
     const mem = $('table').eq(0).children('tbody').children().eq(8).children().eq(1).text();
     const $div = $('.col-sm-12').eq(1).children('div').eq(0);
     const $pos = $div.prev().prev();
-    $pos.after('<span>' + problem + ' / ' + username + ' / ' + lang + ' / ' + time + ' / ' + mem + '</span>');
+    $pos.after('<span>' + date + ' / ' + problem + ' / ' + username + ' / ' + lang + ' / ' + time + ' / ' + mem + '</span>');
   }
   //}}}
 
