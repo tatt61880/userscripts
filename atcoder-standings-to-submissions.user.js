@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-standings-to-submissions
 // @namespace   https://github.com/tatt61880
-// @version     1.4.1
+// @version     1.4.4
 // @description AtCoderの終了後のコンテストの順位表のAC時刻の箇所をダブルクリックすることで、提出コードのページを表示するようにします。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*/standings*
@@ -19,6 +19,9 @@
   function isStandingFa($td) {
     return $td.parent().attr('class') == 'standings-fa';
   }
+  function isVirtual() {
+    return location.href.match(/\/standings\/virtual\b/);
+  }
 
   function getProblemUrl(event) {
     const $td = $(event.target).parent();
@@ -27,7 +30,7 @@
 
     let problems = [];
     let problemsId = 0;
-    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : 3);
+    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : (isVirtual() ? 4 : 3));
     if (idx < 0) return null;
     $('thead').children().each(function(index, element) {
       const text1 = $(element).children().eq(0).text();
