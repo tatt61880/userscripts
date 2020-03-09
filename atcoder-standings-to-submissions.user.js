@@ -30,7 +30,7 @@
 
     let problems = [];
     let problemsId = 0;
-    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : (isVirtual() ? 4 : 3));
+    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : isVirtual() ? 4 : 3);
     if (idx < 0) return null;
     $('thead').children().each(function(index, element) {
       const text1 = $(element).children().eq(0).text();
