@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.5.1
+// @version     1.5.5
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -117,10 +117,21 @@
     if (!kShowStandingsStatisticsInThead) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
-    const elem1 = $('#standings-tbody > .standings-statistics');
-    $('table > thead').prepend(elem1.prop('outerHTML'));
-    const elem2 = $('#standings-tbody > .standings-fa');
-    $('table > thead').prepend(elem2.prop('outerHTML'));
+    const count = 0;
+    showStandingsStatisticsInTheadSub();
+    function showStandingsStatisticsInTheadSub() {
+      const id = setTimeout(showStandingsStatisticsInTheadSub, 200);
+      if (count > 300) clearTimeout(id);
+
+      const elem1 = $('.standings-statistics');
+      if (elem1.prop('outerHTML') === undefined) return;
+
+      clearTimeout(id);
+
+      $('table > thead').prepend(elem1.prop('outerHTML'));
+      const elem2 = $('.standings-fa');
+      $('table > thead').prepend(elem2.prop('outerHTML'));
+    }
   }
   //}}}
 
@@ -213,8 +224,8 @@
     const count = 0;
     foldingSourcecodeSub();
     function foldingSourcecodeSub() {
-      const id = setTimeout(foldingSourcecodeSub, 100);
-      if (count > 50) clearTimeout(id);
+      const id = setTimeout(foldingSourcecodeSub, 200);
+      if (count > 300) clearTimeout(id);
       if ($('.prettyprinted').length == 0) return;
 
       clearTimeout(id);
