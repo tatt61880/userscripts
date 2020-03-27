@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name        yukicoder-mysubmissions
 // @namespace   https://github.com/tatt61880
-// @version     1.0.0
+// @version     1.0.1
 // @description yukicoderの「提出一覧」の横に「自分の提出一覧」を追加します。
 // @author      tatt61880
-// @match       https://yukicoder.me/problems/no/*
+// @match       https://yukicoder.me/problems/*
 // @grant       none
 // @updateURL   https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.users.js
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.users.js
@@ -13,7 +13,7 @@
 (function($) {
   'use strict';
 
-  if (!location.href.match(/^https:\/\/yukicoder\.me\/problems\/no\/.*$/)) return;
+  if (!location.href.match(/^https:\/\/yukicoder\.me\/problems\/.*$/)) return;
   $('a').each(function(index, element) {
     const text = $(element).text();
     if (text == '提出一覧') {
