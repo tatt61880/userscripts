@@ -6,8 +6,8 @@
 // @author      tatt61880
 // @match       https://yukicoder.me/problems/*
 // @grant       none
-// @updateURL   https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.users.js
-// @downloadURL https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.users.js
+// @updateURL   https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.user.js
+// @downloadURL https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.user.js
 // ==/UserScript==
 
 (function($) {
