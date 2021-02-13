@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-results-summary
 // @namespace   https://github.com/tatt61880
-// @version     1.3.5
+// @version     2.0.0
 // @description AtCoderの提出結果(AC/RE/TLE/WAなど)の数をまとめます。
 // @author      tatt61880
 // @match       https://atcoder.jp/*/submissions*
@@ -44,7 +44,8 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
 
   if (location.href.match(/\/submissions\/\d+$/)) {
     const resultNums = {};
-    $('table').eq(2).children('tbody').children().each(function(index, elem) {
+
+    $('table:last').children('tbody').children().each(function(index, elem) {
       const result = $(elem).children().eq(1).text();
       if (resultNums[result] === undefined) {
         resultNums[result] = 1;
