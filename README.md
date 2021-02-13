@@ -33,3 +33,10 @@ AtCoderの終了後のコンテストの順位表のAC時刻の箇所をダブ�
 ##  [atcoder-customize-tatt61880.user.js](https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js)
 
 私( [@tatt61880](https://twitter.com/tatt61880) )の好みに合わせて、AtCoderのサイトを細かく調整します。 使用は非推奨です。
+
+
+----
+
+##  [yukicoder-mysubmissions.user.js](https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.user.js)
+
+yukicoderの「提出一覧」の横に「自分の提出一覧」を追加します。
