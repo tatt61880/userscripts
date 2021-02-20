@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.5.5
+// @version     1.5.6
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -173,7 +173,7 @@
     if (!kLanguageCheck) return;
     if (!location.href.match(/\/contests\//)) return;
 
-    const myLang = 'C++14 (GCC 5.4.1)';
+    const myLang = 'C++ (GCC 9.2.1)';
 
     function getElement() {
       if (location.href.match('/submit')) {
