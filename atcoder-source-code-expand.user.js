@@ -14,4 +14,4 @@
   'use strict';
 
   $('.source-code-expand-btn').click();
-})(jQuery);
+})(window.jQuery);

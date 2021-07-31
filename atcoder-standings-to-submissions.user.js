@@ -106,4 +106,4 @@
         window.alert('[atcoder-standings-to-submissions.user.js]\n' + url + ' の読み込みに失敗しました。');
       });
   });
-})(jQuery);
+})(window.jQuery);
