@@ -85,4 +85,4 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
         }
       });
   }
-})(jQuery);
+})(window.jQuery);
