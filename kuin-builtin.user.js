@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        kuin-builtin
 // @namespace   https://github.com/tatt61880
-// @version     1.0.0
+// @version     1.0.1
 // @description Kuin APIのページの情報を、対象の型毎に切り替えることができるようにします。
 // @author      tatt61880
 // @match       https://kuina.ch/kuin/api_exe/builtin*
@@ -16,12 +16,13 @@
 
   const $h2s = $('h2');
   const typeSet = new Set();
-  const nameTypeAll = 'All';
+  const typeAll = 'All';
   let typeIdNext = 0;
   const typeIds = [];
   {
     // 順番を固定します。
-    const types = [nameTypeAll, 'int', 'float', 'char', 'bool',
+    const types = [typeAll,
+      'int', 'float', 'char', 'bool',
       'bit8', 'bit16', 'bit32', 'bit64',
       'list', 'stack', 'queue', 'dict', 'enum'];
     for (const type of types) {
@@ -46,6 +47,7 @@
         if (match) {
           typeInfo = true;
           const types = match[1].split(', ');
+          $div.addClass(`type${typeIds[typeAll]}`);
           for (const type of types) {
             if (!typeSet.has(type)) {
               typeIds[type] = typeIdNext++;
@@ -76,14 +78,10 @@
   $('input[name="type"]').change(function () {
     const selectedType = $(this).val();
     const selectedTypeId = typeIds[selectedType];
-    if (selectedType == nameTypeAll) {
-      for (let type of typeSet) {
-        $(`.type${typeIds[type]}`).show();
-      }
+    if (selectedType == typeAll) {
+      $(`.type${typeIds[typeAll]}`).show();
     } else {
-      for (let type of typeSet) {
-        $(`.type${typeIds[type]}`).hide();
-      }
+      $(`.type${typeIds[typeAll]}`).hide();
       $(`.type${selectedTypeId}`).show();
     }
   });
