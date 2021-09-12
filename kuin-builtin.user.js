@@ -61,8 +61,10 @@
 
   {
     const $div = $('<div>', {'class': 'block'});
+    let checked = " checked";
     for (let type of typeSet) {
-      const $radioButton = $(`<label><input type="radio" name="type" value="${type}">${type} </label>`);
+      const $radioButton = $(`<label><input type="radio" name="type" value="${type}"${checked}>${type} </label>`);
+      checked = '';
       $div.append($radioButton);
       if (type == 'enum') {
         $div.append('<br>');
