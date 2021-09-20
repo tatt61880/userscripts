@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.5.6
+// @version     1.6.0
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -173,34 +173,38 @@
     if (!kLanguageCheck) return;
     if (!location.href.match(/\/contests\//)) return;
 
-    const myLang = 'C++ (GCC 9.2.1)';
+    $(document).ready(function() {
+      const myLang = 'C++ (GCC 9.2.1)';
 
-    function getElement() {
-      if (location.href.match('/submit')) {
-        let res;
-        $('#select-lang > div').each(function(index, elem) {
-          if ($(elem).css('display') == 'block') {
-            res = $(elem).find('span.selection');
-            return false;
-          }
-        });
-        return res;
-      } else {
-        return $('#select-lang span.selection');
+      const elemTarget = getElement();
+      const config = {
+        childList: true,
+        subtree: true
+      };
+      const observer = new window.MutationObserver(checkLanguage);
+      observer.observe(elemTarget.get(0), config);
+      checkLanguage();
+
+      function getElement() {
+        if (location.href.match('/submit')) {
+          let res;
+          $('#select-lang > div').each(function(index, elem) {
+            if ($(elem).css('display') == 'block') {
+              res = $(elem).find('span.selection');
+              return false;
+            }
+          });
+          return res;
+        } else {
+          return $('#select-lang span.selection');
+        }
       }
-    }
 
-    function checkLanguage() {
-      const lang = getElement().text();
-      const isOk = lang.indexOf(myLang) !== -1;
-      $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
-    }
-
-    $(document).ready(checkLanguage);
-    let timeoutId;
-    $(document).on('mouseup keydown', function() {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(checkLanguage, 500);
+      function checkLanguage() {
+        const lang = getElement().text();
+        const isOk = lang.indexOf(myLang) !== -1;
+        $('#select-lang').css('background', isOk ? '#FFFFFF' : '#FF0000');
+      }
     });
   }
   //}}}
