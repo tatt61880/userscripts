@@ -1,5 +1,5 @@
-all:
-	npm run lint
+all: node_modules
+	npm run eslint
 
-install:
+node_modules:
 	npm install
