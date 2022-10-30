@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        kuin-builtin
 // @namespace   https://github.com/tatt61880
-// @version     1.0.1
+// @version     1.0.2
 // @description Kuin APIのページの情報を、対象の型毎に切り替えることができるようにします。
 // @author      tatt61880
 // @match       https://kuina.ch/kuin/api_exe/builtin*
@@ -64,7 +64,7 @@
   {
     const $div = $('<div>', {'class': 'block'});
     let checked = ' checked';
-    for (let type of typeSet) {
+    for (const type of typeSet) {
       const $radioButton = $(`<label><input type="radio" name="type" value="${type}"${checked}>${type} </label>`);
       checked = '';
       $div.append($radioButton);
@@ -75,7 +75,7 @@
     $('h2').eq(0).parent().before($div);
   }
 
-  $('input[name="type"]').change(function () {
+  $('input[name="type"]').change(function() {
     const selectedType = $(this).val();
     const selectedTypeId = typeIds[selectedType];
     if (selectedType == typeAll) {

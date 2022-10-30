@@ -18,7 +18,7 @@
     const text = $(element).text();
     if (text == '提出一覧') {
       const url = $(element).attr('href');
-      if (url.match(/^\/problems\/no\/(\d+)\/submissions$/)){
+      if (url.match(/^\/problems\/no\/(\d+)\/submissions$/)) {
         const id = url.replace(/^\/problems\/no\/(\d+)\/submissions$/, '$1');
         $(element).after('<a href="https://yukicoder.me/problems/no/' + id + '/submissions?my_submission=enabled">自分の提出一覧</a>');
       }

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-customize-tatt61880
 // @namespace   https://github.com/tatt61880
-// @version     1.6.0
+// @version     1.6.1
 // @description AtCoderのサイトをtatt61880の好みに合わせて細かく調整します。
 // @author      tatt61880
 // @match       https://atcoder.jp/*
@@ -213,7 +213,7 @@
     if (!kFoldingSourcecode) return;
     if (!location.href.match(/\/submissions\/\d+$/)) return;
 
-    let users = [];
+    const users = [];
 
     // 各ユーザーのテンプレートを定義して使用します。
     users.tatt61880 = [new RegExp('^//{{{'), new RegExp('^//}}}')];
@@ -242,7 +242,7 @@
       const hideCss = {height: 0, visibility: 'hidden'};
       let level = 0;
       const kOnText = '表示';
-      function onText(text){
+      function onText(text) {
         return kOnText + ' ' + '-'.repeat(150 - text.length);
       }
       const kOffText = '非表示';
@@ -270,7 +270,7 @@
         }
         if (text.match(kRegexTemplateEnd)) {
           level--;
-          if (level == 0){
+          if (level == 0) {
             templateLines = 0;
           }
         }
@@ -316,7 +316,7 @@
             $(element).data('level', currentLevel + add);
             if (text.match(kRegexTemplateEnd)) {
               level--;
-              if (level == 0){
+              if (level == 0) {
                 return false;
               }
             }

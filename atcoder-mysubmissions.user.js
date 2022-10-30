@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        atcoder-mysubmissions
 // @namespace   https://github.com/tatt61880
-// @version     1.0.0
+// @version     1.0.1
 // @description atcoderの「提出一覧」の横に「自分の提出一覧」を追加します。
 // @author      tatt61880
 // @match       https://atcoder.jp/contests/*/tasks/*
