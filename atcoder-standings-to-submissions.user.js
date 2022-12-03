@@ -14,10 +14,10 @@
   'use strict';
 
   function isStandingResult($td) {
-    return $td.attr('class') == 'standings-result';
+    return $td.attr('class') === 'standings-result';
   }
   function isStandingFa($td) {
-    return $td.parent().attr('class') == 'standings-fa';
+    return $td.parent().attr('class') === 'standings-fa';
   }
   function isVirtual() {
     return location.href.match(/\/standings\/virtual\b/);
@@ -34,7 +34,7 @@
     if (idx < 0) return null;
     $('thead').children().each(function(index, element) {
       const text1 = $(element).children().eq(0).text();
-      if (text1 != '順位' && text1 != 'Rank') return true;
+      if (text1 !== '順位' && text1 !== 'Rank') return true;
       $(element).children().each(function(index, element) {
         const $href = $(element).children('a').attr('href');
         if ($href === undefined) return true;
@@ -67,12 +67,12 @@
 
   $(document).click(function(event) {
     const $td = $(event.target).parent();
-    if ($td.attr('class') != 'standings-result') return;
+    if ($td.attr('class') !== 'standings-result') return;
     const key_event = event;
     if (!key_event.altKey) return;
 
     const problemUrl = getProblemUrl(event);
-    if (problemUrl == null) return;
+    if (problemUrl === null) return;
     const userId = getUserId(event);
     const contestId = getContestId(problemUrl);
     const problemId = getProblemId(problemUrl);
@@ -83,7 +83,7 @@
 
   $(document).dblclick(function(event) {
     const problemUrl = getProblemUrl(event);
-    if (problemUrl == null) return;
+    if (problemUrl === null) return;
     const userId = getUserId(event);
     const contestId = getContestId(problemUrl);
     const problemId = getProblemId(problemUrl);
@@ -94,7 +94,7 @@
       function(data) {
         const prev = data;
         data = data.replace(/[\d\D]*?href="(.*?)">(詳細|Detail)<[\d\D]*/, '$1');
-        if (data == prev) {
+        if (data === prev) {
           window.alert('[atcoder-standings-to-submissions.user.js]\nデータがありません。');
           return;
         }

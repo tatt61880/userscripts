@@ -34,8 +34,8 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
 
     let summary = '';
     results.forEach(function(result) {
-      if (summary != '') summary += ' &nbsp; ';
-      const label = result == 'AC' ? 'label-success' : 'label-warning';
+      if (summary !== '') summary += ' &nbsp; ';
+      const label = result === 'AC' ? 'label-success' : 'label-warning';
       summary += '<span class=\'label ' + label + '\'>' + result + '</span>';
       summary += ' ' + resultNums[result];
     });

@@ -56,7 +56,7 @@
 
     $('#atcoder-customize-tatt61880-footer-btn').click(function() {
       const $this = $(this);
-      const state = $this.text() == $this.data('on-text');
+      const state = $this.text() === $this.data('on-text');
       $this.text($this.data(state ? 'off-text' : 'on-text'));
       if (state) {
         $('#' + footerId).show();
@@ -77,8 +77,8 @@
     br.each(function(index, element) {
       const prevText = $(element).prev().text();
       const nextText = $(element).next().text();
-      if (prevText == '※ 512 KiB まで' &&
-        nextText == '※ ソースコードは「Main.拡張子」で保存されます'
+      if (prevText === '※ 512 KiB まで' &&
+        nextText === '※ ソースコードは「Main.拡張子」で保存されます'
       ) {
         $(element).next().text('/ ' + nextText);
         $(element).hide();
@@ -92,7 +92,7 @@
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
     $('.standings-per-page').each(function(index, element) {
-      if ($(element).text() == '100') {
+      if ($(element).text() === '100') {
         element.click();
       }
     });
@@ -189,7 +189,7 @@
         if (location.href.match('/submit')) {
           let res;
           $('#select-lang > div').each(function(index, elem) {
-            if ($(elem).css('display') == 'block') {
+            if ($(elem).css('display') === 'block') {
               res = $(elem).find('span.selection');
               return false;
             }
@@ -230,7 +230,7 @@
     function foldingSourcecodeSub() {
       const id = setTimeout(foldingSourcecodeSub, 200);
       if (count > 300) clearTimeout(id);
-      if ($('.prettyprinted').length == 0) return;
+      if ($('.prettyprinted').length === 0) return;
 
       clearTimeout(id);
 
@@ -258,7 +258,7 @@
         }
 
         if (templateLines) {
-          if (templateLines == 1) {
+          if (templateLines === 1) {
             const span =
                   '<span> <a class="btn-text atcoder-folding-sourcecode-btn"' +
                   ' data-from="' + lines + '">' + onText(text) + '</a></span>';
@@ -270,7 +270,7 @@
         }
         if (text.match(kRegexTemplateEnd)) {
           level--;
-          if (level == 0) {
+          if (level === 0) {
             templateLines = 0;
           }
         }
@@ -295,7 +295,7 @@
       $('.atcoder-folding-sourcecode-btn').click(function() {
         const $this = $(this);
         const text = $this.parent().prev().text();
-        const state = $this.text() != kOffText;
+        const state = $this.text() !== kOffText;
         $this.text(state ? kOffText : onText(text));
         const li = $('#submission-code > ol > li');
         const add = state ? -1 : 1;
@@ -316,7 +316,7 @@
             $(element).data('level', currentLevel + add);
             if (text.match(kRegexTemplateEnd)) {
               level--;
-              if (level == 0) {
+              if (level === 0) {
                 return false;
               }
             }

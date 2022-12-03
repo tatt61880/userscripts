@@ -16,7 +16,7 @@
   if (!location.href.match(/^https:\/\/yukicoder\.me\/problems\/.*$/)) return;
   $('a').each(function(index, element) {
     const text = $(element).text();
-    if (text == '提出一覧') {
+    if (text === '提出一覧') {
       const url = $(element).attr('href');
       if (url.match(/^\/problems\/no\/(\d+)\/submissions$/)) {
         const id = url.replace(/^\/problems\/no\/(\d+)\/submissions$/, '$1');

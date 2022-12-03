@@ -40,9 +40,9 @@
       const $prev = $elem;
       $elem = $elem.next();
       $prev.remove();
-      if ($elem[0].nodeName == 'H2') break;
-      if ($elem[0].className == 'navi_sub_bottom') break;
-      if (!typeInfo && $elem[0].nodeName == 'DIV') {
+      if ($elem[0].nodeName === 'H2') break;
+      if ($elem[0].className === 'navi_sub_bottom') break;
+      if (!typeInfo && $elem[0].nodeName === 'DIV') {
         const match = $elem.text().match(/対象の型: ((?:[^,]+(?:, )?)*)/);
         if (match) {
           typeInfo = true;
@@ -68,7 +68,7 @@
       const $radioButton = $(`<label><input type="radio" name="type" value="${type}"${checked}>${type} </label>`);
       checked = '';
       $div.append($radioButton);
-      if (type == 'enum') {
+      if (type === 'enum') {
         $div.append('<br>');
       }
     }
@@ -78,7 +78,7 @@
   $('input[name="type"]').change(function() {
     const selectedType = $(this).val();
     const selectedTypeId = typeIds[selectedType];
-    if (selectedType == typeAll) {
+    if (selectedType === typeAll) {
       $(`.type${typeIds[typeAll]}`).show();
     } else {
       $(`.type${typeIds[typeAll]}`).hide();
