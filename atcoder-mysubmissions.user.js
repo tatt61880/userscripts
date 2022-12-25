@@ -10,7 +10,7 @@
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-mysubmissions.user.js
 // ==/UserScript==
 
-(function($) {
+(function ($) {
   'use strict';
 
   if (!location.href.match(/^https:\/\/atcoder\.jp\/contests\/.*\/tasks\/.*$/)) return;

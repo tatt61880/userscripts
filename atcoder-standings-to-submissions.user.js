@@ -10,7 +10,7 @@
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-standings-to-submissions.user.js
 // ==/UserScript==
 
-(function($) {
+(function ($) {
   'use strict';
 
   function isStandingResult($td) {
@@ -32,10 +32,10 @@
     let problemsId = 0;
     const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : isVirtual() ? 4 : 3);
     if (idx < 0) return null;
-    $('thead').children().each(function(index, element) {
+    $('thead').children().each(function (index, element) {
       const text1 = $(element).children().eq(0).text();
       if (text1 !== '順位' && text1 !== 'Rank') return true;
-      $(element).children().each(function(index, element) {
+      $(element).children().each(function (index, element) {
         const $href = $(element).children('a').attr('href');
         if ($href === undefined) return true;
         problems[problemsId++] = $href;
@@ -65,7 +65,7 @@
     return problemUrl.replace(/.*\//, '');
   }
 
-  $(document).click(function(event) {
+  $(document).click(function (event) {
     const $td = $(event.target).parent();
     if ($td.attr('class') !== 'standings-result') return;
     const key_event = event;
@@ -81,7 +81,7 @@
     window.open(url, '_blank') ;
   });
 
-  $(document).dblclick(function(event) {
+  $(document).dblclick(function (event) {
     const problemUrl = getProblemUrl(event);
     if (problemUrl === null) return;
     const userId = getUserId(event);
@@ -90,8 +90,9 @@
 
     const url = 'https://atcoder.jp/contests/' + contestId + '/submissions?f.Language=&f.Status=AC&f.Task=' + problemId + '&f.User=' + userId + '&orderBy=created';
 
-    $.ajax({type: 'GET', url: url, dataType: 'html'}).then(
-      function(data) {
+    $.ajax({type: 'GET', url, dataType: 'html'}).then(
+      function (data_) {
+        let data = data_;
         const prev = data;
         data = data.replace(/[\d\D]*?href="(.*?)">(詳細|Detail)<[\d\D]*/, '$1');
         if (data === prev) {
@@ -102,7 +103,7 @@
         window.open(href, '_blank') ;
       },
 
-      function() {
+      function () {
         window.alert('[atcoder-standings-to-submissions.user.js]\n' + url + ' の読み込みに失敗しました。');
       });
   });

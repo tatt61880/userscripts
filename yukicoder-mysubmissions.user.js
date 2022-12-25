@@ -10,11 +10,11 @@
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/yukicoder-mysubmissions.user.js
 // ==/UserScript==
 
-(function($) {
+(function ($) {
   'use strict';
 
   if (!location.href.match(/^https:\/\/yukicoder\.me\/problems\/.*$/)) return;
-  $('a').each(function(index, element) {
+  $('a').each(function (index, element) {
     const text = $(element).text();
     if (text === '提出一覧') {
       const url = $(element).attr('href');

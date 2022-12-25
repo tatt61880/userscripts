@@ -10,7 +10,7 @@
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-customize-tatt61880.user.js
 // ==/UserScript==
 
-(function($) {
+(function ($) {
   'use strict';
 
   const kFoldingFooter = true; // footerの折りたたみ。
@@ -34,7 +34,7 @@
   try { foldingSourcecode(); } catch (ex) { }
   try { resultsSummaryAdditionalInfo(); } catch (ex) { }
 
-  function foldingFooter() { //{{{
+  function foldingFooter() { // {{{
     if (!kFoldingFooter) return;
     const footerId = 'footer-tatt61880';
     const footer = $('.container > footer.footer').parent();
@@ -54,7 +54,7 @@
     $('#' + footerId).hide();
     footer.remove();
 
-    $('#atcoder-customize-tatt61880-footer-btn').click(function() {
+    $('#atcoder-customize-tatt61880-footer-btn').click(function () {
       const $this = $(this);
       const state = $this.text() === $this.data('on-text');
       $this.text($this.data(state ? 'off-text' : 'on-text'));
@@ -69,12 +69,12 @@
       }
     });
   }
-  //}}}
+  // }}}
 
-  function removeBr() { //{{{
+  function removeBr() { // {{{
     if (!kRemoveBr) return;
     const br = $('#sourceCode').children('p').children('br');
-    br.each(function(index, element) {
+    br.each(function (index, element) {
       const prevText = $(element).prev().text();
       const nextText = $(element).next().text();
       if (prevText === '※ 512 KiB まで' &&
@@ -85,25 +85,25 @@
       }
     });
   }
-  //}}}
+  // }}}
 
-  function standingsDefault100() { //{{{
+  function standingsDefault100() { // {{{
     if (!kStandingsDefault100) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
-    $('.standings-per-page').each(function(index, element) {
+    $('.standings-per-page').each(function (index, element) {
       if ($(element).text() === '100') {
         element.click();
       }
     });
   }
-  //}}}
+  // }}}
 
-  function inOutColorize() { //{{{
+  function inOutColorize() { // {{{
     if (!kInOutColorize) return;
     if (!location.href.match(/\/contests\/.*\/tasks.*$/)) return;
 
-    $('h3').each(function(index, element) {
+    $('h3').each(function (index, element) {
       if ($(element).text().match(/^入力.*$/)) {
         $(element).css('color', '#000080');
       } else if ($(element).text().match(/^出力.*$/)) {
@@ -111,9 +111,9 @@
       }
     });
   }
-  //}}}
+  // }}}
 
-  function showStandingsStatisticsInThead() { //{{{
+  function showStandingsStatisticsInThead() { // {{{
     if (!kShowStandingsStatisticsInThead) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
@@ -133,9 +133,9 @@
       $('table > thead').prepend(elem2.prop('outerHTML'));
     }
   }
-  //}}}
+  // }}}
 
-  function drawACTimeBarGraph() { //{{{
+  function drawACTimeBarGraph() { // {{{
     if (!kDrawACTimeBarGraph) return;
     if (!location.href.match(/\/contests\/.*\/standings\b/)) return;
 
@@ -144,7 +144,7 @@
       const end = eval('endTime');
       const contestTimeSec = (end - start) / 1000;
       // console.log('contestTimeSec: ' + contestTimeSec);
-      $('.standings-result').each(function(index, element) {
+      $('.standings-result').each(function (index, element) {
         const elem = element.children[1];
         if (elem === undefined) return;
         const timeStr = elem.textContent;
@@ -162,18 +162,18 @@
     $(document).ready(drawACTimeBarGraphSub);
 
     let timeoutId;
-    $(document).on('mouseup', function() {
+    $(document).on('mouseup', function () {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(drawACTimeBarGraphSub, 500);
     });
   }
-  //}}}
+  // }}}
 
-  function languageCheck() { //{{{
+  function languageCheck() { // {{{
     if (!kLanguageCheck) return;
     if (!location.href.match(/\/contests\//)) return;
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       const myLang = 'C++ (GCC 9.2.1)';
 
       const elemTarget = getElement();
@@ -188,7 +188,7 @@
       function getElement() {
         if (location.href.match('/submit')) {
           let res;
-          $('#select-lang > div').each(function(index, elem) {
+          $('#select-lang > div').each(function (index, elem) {
             if ($(elem).css('display') === 'block') {
               res = $(elem).find('span.selection');
               return false;
@@ -207,9 +207,9 @@
       }
     });
   }
-  //}}}
+  // }}}
 
-  function foldingSourcecode() { //{{{
+  function foldingSourcecode() { // {{{
     if (!kFoldingSourcecode) return;
     if (!location.href.match(/\/submissions\/\d+$/)) return;
 
@@ -238,7 +238,7 @@
       let lines = 0;
       const li = $('#submission-code > ol > li');
       const height = li.css('height');
-      const showCss = {height: height, visibility: 'visible'};
+      const showCss = {height, visibility: 'visible'};
       const hideCss = {height: 0, visibility: 'hidden'};
       let level = 0;
       const kOnText = '表示';
@@ -246,7 +246,7 @@
         return kOnText + ' ' + '-'.repeat(150 - text.length);
       }
       const kOffText = '非表示';
-      li.each(function(index, element) {
+      li.each(function (index, element) {
         lines++;
         const text = $(element).text();
         if (
@@ -279,7 +279,7 @@
       update(li);
 
       function update(li) {
-        li.each(function(index, element) {
+        li.each(function (index, element) {
           let level = $(element).data('level');
           if (level === undefined) return true;
           if ($(element).data('start') !== undefined) level--;
@@ -292,7 +292,7 @@
         });
       }
 
-      $('.atcoder-folding-sourcecode-btn').click(function() {
+      $('.atcoder-folding-sourcecode-btn').click(function () {
         const $this = $(this);
         const text = $this.parent().prev().text();
         const state = $this.text() !== kOffText;
@@ -301,7 +301,7 @@
         const add = state ? -1 : 1;
         let level = 1;
         li.eq($this.data('from') - 1)
-          .nextAll('li').each(function(index, element) {
+          .nextAll('li').each(function (index, element) {
             const currentLevel = $(element).data('level');
             if (level === undefined) return false;
 
@@ -325,9 +325,9 @@
       });
     }
   }
-  //}}}
+  // }}}
 
-  function resultsSummaryAdditionalInfo() { //{{{
+  function resultsSummaryAdditionalInfo() { // {{{
     if (!kResultsSummaryAdditionalInfo) return;
     if (!location.href.match(/\/submissions\/\d+$/)) return;
     const date = $('table').eq(0).children('tbody').children().eq(0).children().eq(1).text();
@@ -340,16 +340,16 @@
     const $pos = $div.prev().prev();
     $pos.after('<span>' + date + ' / ' + problem + ' / ' + username + ' / ' + lang + ' / ' + time + ' / ' + mem + '</span>');
   }
-  //}}}
+  // }}}
 
   // 未完成 (完成しなさそう)
   // 入出力の表示変更
   const kInOutPos = false;
   if (kInOutPos) inOutPos();
-  function inOutPos() { //{{{
+  function inOutPos() { // {{{
     if (!location.href.match(/\/contests\/.*\/tasks.*$/)) return;
 
-    $('h3').each(function(index, element) {
+    $('h3').each(function (index, element) {
       if ($(element).text().match(/^入力例.*$/)) {
         $(element).parents('.part').css(
           {'float': 'left', 'margin-right': '30px'}
@@ -357,5 +357,5 @@
       }
     });
   }
-  //}}}
+  // }}}
 })(window.jQuery);

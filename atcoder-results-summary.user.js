@@ -18,7 +18,7 @@ https://atcoder.jp/contests/agc029/submissions?f.User=tatt61880
 https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
 */
 
-(function($) {
+(function ($) {
   'use strict';
 
   const KEY_PREFIX = 'atcoder-results-summary.user.js-';
@@ -33,7 +33,7 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
     results.sort(); // ソートしておくとACが先頭に来て都合が良さそうです。
 
     let summary = '';
-    results.forEach(function(result) {
+    results.forEach(function (result) {
       if (summary !== '') summary += ' &nbsp; ';
       const label = result === 'AC' ? 'label-success' : 'label-warning';
       summary += '<span class=\'label ' + label + '\'>' + result + '</span>';
@@ -45,7 +45,7 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
   if (location.href.match(/\/submissions\/\d+$/)) {
     const resultNums = {};
 
-    $('table:last').children('tbody').children().each(function(index, elem) {
+    $('table:last').children('tbody').children().each(function (index, elem) {
       const result = $(elem).children().eq(1).text();
       if (resultNums[result] === undefined) {
         resultNums[result] = 1;
@@ -57,7 +57,7 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
     const $elem = $('.col-sm-12').eq(1); // TODO: Webサイトの構成の変更に強そうなセレクタの模索。
     const ps = $elem.children('p');
     ps.eq(1).before('<p>' + createSummaryHtml(resultNums) + '</p>');
-    if (~document.title.indexOf(ps.eq(0).text().trim())) {
+    if (document.title.indexOf(ps.eq(0).text().trim()) !== -1) {
       // ページタイトルに含まれている情報なので、スペースの節約のために非表示にします。
       ps.eq(0).hide();
       // hrも多分要らないでしょう。
@@ -72,7 +72,7 @@ https://atcoder.jp/contests/ddcc2016-qual/submissions/968862
     localStorage[key] = JSON.stringify(resultNums);
   } else {
     $('table').eq(0).children('tbody').children('tr').each(
-      function(index, elem) {
+      function (index, elem) {
         const href = $(elem).children().eq(-1).children().eq(0).attr('href');
         if (href !== undefined) {
           const key = KEY_PREFIX + href.match(/(\d+)$/)[1];

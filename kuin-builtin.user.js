@@ -11,7 +11,7 @@
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // ==/UserScript==
 
-(function($) {
+(function ($) {
   'use strict';
 
   const $h2s = $('h2');
@@ -75,7 +75,7 @@
     $('h2').eq(0).parent().before($div);
   }
 
-  $('input[name="type"]').change(function() {
+  $('input[name="type"]').change(function () {
     const selectedType = $(this).val();
     const selectedTypeId = typeIds[selectedType];
     if (selectedType === typeAll) {

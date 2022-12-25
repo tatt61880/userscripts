@@ -10,7 +10,7 @@
 // @downloadURL https://github.com/tatt61880/userscripts/raw/master/atcoder-source-code-expand.user.js
 // ==/UserScript==
 
-(function($) {
+(function ($) {
   'use strict';
 
   $('.source-code-expand-btn').click();
