@@ -62,7 +62,7 @@
   }
 
   {
-    const $div = $('<div>', {'class': 'block'});
+    const $div = $('<div>', { 'class': 'block' });
     let checked = ' checked';
     for (const type of typeSet) {
       const $radioButton = $(`<label><input type="radio" name="type" value="${type}"${checked}>${type} </label>`);

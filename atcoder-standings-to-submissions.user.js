@@ -90,7 +90,7 @@
 
     const url = 'https://atcoder.jp/contests/' + contestId + '/submissions?f.Language=&f.Status=AC&f.Task=' + problemId + '&f.User=' + userId + '&orderBy=created';
 
-    $.ajax({type: 'GET', url, dataType: 'html'}).then(
+    $.ajax({ type: 'GET', url, dataType: 'html' }).then(
       function (data_) {
         let data = data_;
         const prev = data;

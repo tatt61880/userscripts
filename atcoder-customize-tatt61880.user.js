@@ -238,8 +238,8 @@
       let lines = 0;
       const li = $('#submission-code > ol > li');
       const height = li.css('height');
-      const showCss = {height, visibility: 'visible'};
-      const hideCss = {height: 0, visibility: 'hidden'};
+      const showCss = { height, visibility: 'visible' };
+      const hideCss = { height: 0, visibility: 'hidden' };
       let level = 0;
       const kOnText = '表示';
       function onText(text) {
@@ -352,7 +352,7 @@
     $('h3').each(function (index, element) {
       if ($(element).text().match(/^入力例.*$/)) {
         $(element).parents('.part').css(
-          {'float': 'left', 'margin-right': '30px'}
+          { 'float': 'left', 'margin-right': '30px' }
         );
       }
     });
