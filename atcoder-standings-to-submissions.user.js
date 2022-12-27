@@ -30,7 +30,8 @@
 
     const problems = [];
     let problemsId = 0;
-    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : isVirtual() ? 4 : 3);
+    const x = isVirtual() ? 4 : 3;
+    const idx = $tr.children().index($td) - (isStandingFa($td) ? 1 : x);
     if (idx < 0) return null;
     $('thead').children().each(function (index, element) {
       const text1 = $(element).children().eq(0).text();
@@ -68,8 +69,8 @@
   $(document).click(function (event) {
     const $td = $(event.target).parent();
     if ($td.attr('class') !== 'standings-result') return;
-    const key_event = event;
-    if (!key_event.altKey) return;
+    const keyEvent = event;
+    if (!keyEvent.altKey) return;
 
     const problemUrl = getProblemUrl(event);
     if (problemUrl === null) return;

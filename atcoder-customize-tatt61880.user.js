@@ -300,8 +300,8 @@
         const li = $('#submission-code > ol > li');
         const add = state ? -1 : 1;
         let level = 1;
-        li.eq($this.data('from') - 1)
-          .nextAll('li').each(function (index, element) {
+        li.eq($this.data('from') - 1).
+          nextAll('li').each(function (index, element) {
             const currentLevel = $(element).data('level');
             if (level === undefined) return false;
 
